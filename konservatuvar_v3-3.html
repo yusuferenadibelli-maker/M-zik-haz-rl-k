@@ -1,0 +1,2629 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>BilsemMüzik & Konservatuvar Hazırlık</title>
+
+<!-- PWA Meta -->
+<meta name="application-name" content="MüzikHazırlık">
+<meta name="description" content="BİLSEM ve Konservatuvar sınavına hazırlık — kulak eğitimi, ritim, ezgi">
+<meta name="theme-color" content="#07090f">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="MüzikHazırlık">
+
+<!-- PWA Manifest (inline) -->
+<link rel="manifest" href="data:application/json,{
+  %22name%22:%22M%C3%BCzikHaz%C4%B1rl%C4%B1k%22,
+  %22short_name%22:%22M%C3%BCzikHaz%22,
+  %22description%22:%22B%C4%B0LSEM%20ve%20Konservatuvar%20kulak%20e%C4%9Fitimi%22,
+  %22start_url%22:%22.%22,
+  %22display%22:%22standalone%22,
+  %22background_color%22:%22%2307090f%22,
+  %22theme_color%22:%22%2307090f%22,
+  %22orientation%22:%22portrait%22,
+  %22icons%22:[{%22src%22:%22data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20512%20512'%3E%3Crect%20width='512'%20height='512'%20rx='80'%20fill='%2307090f'/%3E%3Ctext%20x='256'%20y='340'%20text-anchor='middle'%20font-size='300'%3E%F0%9F%8E%B5%3C/text%3E%3C/svg%3E%22,%22sizes%22:%22512x512%22,%22type%22:%22image/svg+xml%22}]
+}">
+
+<!-- iOS ikon (SVG inline) -->
+<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect width='512' height='512' rx='80' fill='%2307090f'/><text x='256' y='340' text-anchor='middle' font-size='300'>🎵</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#07090f;--s1:#0e1220;--s2:#141828;--s3:#1a2035;
+  --brd:#232d48;--brd2:#2e3a5c;
+  --gold:#d4a843;--gold2:#f0c96a;--gold3:#fde8a0;
+  --text:#dde2f0;--tm:#7a85a0;--td:#3a4260;
+  --ok:#3db87a;--err:#e04848;--info:#4f8fe0;--warm:#e07a3a;
+  --r:14px;--rs:9px;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{height:100%;font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:radial-gradient(ellipse 70% 50% at 15% 5%,rgba(212,168,67,.05) 0%,transparent 55%),
+             radial-gradient(ellipse 50% 70% at 85% 95%,rgba(79,143,224,.04) 0%,transparent 55%);}
+
+/* ── SCREENS ── */
+.screen{display:none;min-height:100vh;flex-direction:column;position:relative;z-index:1;}
+.screen.active{display:flex;}
+
+/* ── SPLASH ── */
+#splash{align-items:center;justify-content:center;
+  background:radial-gradient(ellipse at 50% 40%,#121830 0%,var(--bg) 70%);}
+.sp-wrap{text-align:center;animation:fadeUp 1s ease both;}
+.sp-logo{font-size:64px;margin-bottom:18px;
+  filter:drop-shadow(0 0 24px rgba(212,168,67,.5));animation:float 3s ease-in-out infinite;}
+.sp-tag{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);
+  background:rgba(212,168,67,.1);border:1px solid rgba(212,168,67,.25);
+  padding:5px 14px;border-radius:20px;display:inline-block;margin-bottom:16px;}
+.sp-title{font-family:'Cormorant Garamond',serif;font-size:clamp(26px,6vw,46px);font-weight:700;
+  color:var(--gold3);line-height:1.1;margin-bottom:6px;}
+.sp-sub{font-family:'Cormorant Garamond',serif;font-size:clamp(18px,3.5vw,26px);
+  color:var(--tm);font-style:italic;margin-bottom:32px;}
+.sp-bar{width:220px;height:2px;background:var(--brd);border-radius:1px;overflow:hidden;margin:0 auto;}
+.sp-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--gold3));animation:ldBar 2.2s ease forwards;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+@keyframes ldBar{from{width:0}to{width:100%}}
+
+/* ── HEADER ── */
+.hdr{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;
+  border-bottom:1px solid var(--brd);background:rgba(14,18,32,.96);
+  backdrop-filter:blur(14px);position:sticky;top:0;z-index:100;}
+.hdr-back{width:36px;height:36px;border-radius:50%;border:1px solid var(--brd);
+  background:var(--s2);cursor:pointer;display:flex;align-items:center;justify-content:center;
+  font-size:16px;color:var(--tm);transition:.2s;}
+.hdr-back:hover{border-color:var(--gold);color:var(--gold);}
+.hdr-title{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:700;color:var(--gold2);}
+.hdr-chip{background:var(--s2);border:1px solid var(--brd);padding:4px 11px;border-radius:18px;
+  font-size:12px;color:var(--tm);font-family:'DM Mono',monospace;}
+
+/* ── HOME ── */
+#home{background:var(--bg);}
+.home-hero{padding:28px 16px 20px;text-align:center;}
+.home-logo-wrap{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:14px;}
+.home-logo-icon{font-size:36px;filter:drop-shadow(0 0 16px rgba(212,168,67,.4));}
+.home-brand{text-align:left;}
+.home-brand-main{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--gold3);line-height:1;}
+.home-brand-sub{font-size:11px;color:var(--tm);letter-spacing:.5px;margin-top:2px;}
+.home-tagline{font-size:13px;color:var(--tm);margin-top:4px;}
+
+.prog-strip{margin:0 14px 18px;background:var(--s1);border:1px solid var(--brd);
+  border-radius:var(--r);padding:14px 16px;display:flex;gap:14px;align-items:center;}
+.streak-box{display:flex;flex-direction:column;align-items:center;
+  background:linear-gradient(135deg,rgba(212,168,67,.12),rgba(212,168,67,.04));
+  border:1px solid rgba(212,168,67,.25);border-radius:var(--rs);padding:9px 12px;min-width:64px;}
+.streak-n{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;color:var(--gold);line-height:1;}
+.streak-l{font-size:9px;color:var(--tm);text-transform:uppercase;letter-spacing:1px;margin-top:3px;}
+.prog-info{flex:1;}
+.pi-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;}
+.pi-lbl{font-size:12px;color:var(--tm);}
+.pi-val{font-family:'DM Mono',monospace;font-size:12px;color:var(--gold2);}
+.pi-bar{height:3px;background:var(--brd);border-radius:2px;overflow:hidden;}
+.pi-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--gold3));transition:width 1s;}
+
+.sec-lbl{padding:0 18px 9px;font-size:10px;text-transform:uppercase;letter-spacing:2px;color:var(--td);}
+.mods-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;padding:0 14px 12px;}
+.mod-card{background:var(--s1);border:1px solid var(--brd);border-radius:var(--r);
+  padding:16px;cursor:pointer;transition:.25s;position:relative;overflow:hidden;}
+.mod-card::before{content:'';position:absolute;inset:0;
+  background:var(--cg,linear-gradient(135deg,rgba(212,168,67,.07) 0%,transparent 55%));
+  opacity:0;transition:.25s;}
+.mod-card:hover{border-color:var(--cc,var(--gold));transform:translateY(-2px);box-shadow:0 6px 24px rgba(0,0,0,.4);}
+.mod-card:hover::before{opacity:1;}
+.mod-card:active{transform:translateY(0);}
+.mod-ico{font-size:28px;margin-bottom:9px;}
+.mod-ttl{font-weight:600;font-size:13px;color:var(--text);line-height:1.2;margin-bottom:2px;}
+.mod-dsc{font-size:10px;color:var(--tm);}
+.mod-sc{position:absolute;top:11px;right:11px;font-family:'DM Mono',monospace;font-size:10px;
+  color:var(--cc,var(--gold));background:var(--s2);padding:2px 6px;border-radius:8px;border:1px solid var(--brd);}
+
+.exam-wrap{padding:0 14px 14px;}
+.exam-btn{width:100%;background:linear-gradient(135deg,var(--gold),#9a6820);
+  border:none;border-radius:var(--r);padding:15px;cursor:pointer;
+  font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:700;
+  color:#07090f;transition:.25s;box-shadow:0 4px 20px rgba(212,168,67,.25);}
+.exam-btn:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(212,168,67,.35);}
+
+/* DIFF TEST BUTTON */
+.diff-wrap{padding:0 14px 28px;}
+.diff-btn{width:100%;background:linear-gradient(135deg,#4f8fe0,#2a5caa);
+  border:none;border-radius:var(--r);padding:15px;cursor:pointer;
+  font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:700;
+  color:#fff;transition:.25s;box-shadow:0 4px 20px rgba(79,143,224,.2);}
+.diff-btn:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(79,143,224,.3);}
+
+/* ── BOTTOM NAV ── */
+.bnav{display:flex;border-top:1px solid var(--brd);background:rgba(14,18,32,.97);
+  backdrop-filter:blur(14px);position:sticky;bottom:0;}
+.bni{flex:1;padding:10px 6px;display:flex;flex-direction:column;align-items:center;gap:2px;
+  cursor:pointer;color:var(--td);font-size:8px;text-transform:uppercase;letter-spacing:.5px;
+  border:none;background:none;transition:.2s;}
+.bni .ni{font-size:19px;}
+.bni.on{color:var(--gold);}
+
+/* ── EX SHARED ── */
+.ex-body{flex:1;padding:14px;display:flex;flex-direction:column;gap:12px;overflow-y:auto;}
+.card{background:var(--s1);border:1px solid var(--brd);border-radius:var(--r);}
+.card-pad{padding:14px 16px;}
+
+/* Note cards */
+.notes-row{display:flex;gap:7px;}
+.note-card{flex:1;background:var(--s1);border:1px solid var(--brd);border-radius:var(--r);
+  padding:14px 8px;text-align:center;transition:.3s;}
+.note-card.lit{border-color:var(--gold);background:rgba(212,168,67,.08);}
+.nc-name{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,6vw,48px);font-weight:700;
+  background:linear-gradient(135deg,var(--gold3),var(--gold));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1;}
+.nc-sub{font-family:'DM Mono',monospace;font-size:10px;color:var(--td);margin-top:3px;}
+.nc-ph{font-size:32px;color:var(--td);padding:8px 0;}
+
+/* Waveform */
+.wv-wrap{background:var(--s1);border:1px solid var(--brd);border-radius:var(--r);
+  padding:8px;position:relative;overflow:hidden;}
+.wv-wrap canvas{width:100%;height:60px;display:block;}
+
+/* Pitch meter */
+.pm{background:var(--s1);border:1px solid var(--brd);border-radius:var(--r);padding:13px 16px;}
+.pm-lbl{font-size:10px;text-transform:uppercase;letter-spacing:1.5px;color:var(--td);margin-bottom:10px;}
+.pm-track{position:relative;height:5px;background:var(--brd);border-radius:3px;}
+.pm-zone{position:absolute;top:0;height:100%;background:rgba(212,168,67,.18);border-radius:3px;}
+.pm-mark{position:absolute;top:-4px;width:2px;height:13px;background:var(--gold3);border-radius:1px;left:50%;transform:translateX(-50%);}
+.pm-needle{position:absolute;top:50%;transform:translate(-50%,-50%);width:13px;height:13px;
+  border-radius:50%;background:var(--gold);box-shadow:0 0 10px rgba(212,168,67,.55);transition:left .08s ease;}
+.pm-lbls{display:flex;justify-content:space-between;margin-top:6px;font-family:'DM Mono',monospace;font-size:9px;color:var(--td);}
+.pm-row{display:flex;justify-content:space-between;margin-top:9px;}
+.pm-rl{font-size:11px;color:var(--tm);}
+.pm-rv{font-family:'DM Mono',monospace;font-size:12px;color:var(--gold2);}
+
+/* Accuracy ring */
+.acc-wrap{background:var(--s1);border:1px solid var(--brd);border-radius:var(--r);padding:16px;text-align:center;}
+.acc-svg{width:120px;height:120px;margin:0 auto;display:block;}
+.acc-grade{display:inline-block;margin-top:5px;padding:3px 13px;border-radius:18px;font-size:11px;font-weight:600;}
+
+/* Controls */
+.ctrl{display:flex;gap:7px;}
+.btn{padding:13px 10px;border-radius:var(--rs);cursor:pointer;
+  font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;
+  display:flex;align-items:center;justify-content:center;gap:5px;transition:.2s;border:none;}
+.btn-sec{flex:1;background:var(--s2);border:1px solid var(--brd);color:var(--tm);}
+.btn-sec:hover{border-color:var(--gold);color:var(--gold);}
+.btn-gold{flex:1.4;background:linear-gradient(135deg,rgba(212,168,67,.15),rgba(212,168,67,.05));
+  border:1px solid rgba(212,168,67,.38);color:var(--gold2);font-weight:600;}
+.btn-gold.rec{background:linear-gradient(135deg,rgba(224,72,72,.18),rgba(224,72,72,.06));
+  border-color:var(--err);color:var(--err);animation:pulsebtn 1.5s infinite;}
+.btn-gold:hover{transform:translateY(-1px);}
+.btn-info{flex:1;background:var(--s2);border:1px solid var(--brd);color:var(--tm);}
+.btn-info:hover{border-color:var(--info);color:var(--info);}
+@keyframes pulsebtn{0%,100%{box-shadow:0 0 0 0 rgba(224,72,72,.3)}50%{box-shadow:0 0 0 7px rgba(224,72,72,0)}}
+
+/* Choices */
+.plbl{font-size:10px;text-transform:uppercase;letter-spacing:1.5px;color:var(--td);margin-bottom:7px;}
+.cgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:6px;}
+.cbtn{padding:10px 7px;text-align:center;background:var(--s2);border:1px solid var(--brd);
+  border-radius:var(--rs);cursor:pointer;font-size:11px;color:var(--tm);transition:.2s;font-family:'DM Sans',sans-serif;}
+.cbtn:hover{border-color:var(--gold);color:var(--gold);}
+.cbtn.sel{border-color:var(--gold);background:rgba(212,168,67,.1);color:var(--gold2);}
+.cbtn.correct{border-color:var(--ok);background:rgba(61,184,122,.1);color:var(--ok);}
+.cbtn.wrong{border-color:var(--err);background:rgba(224,72,72,.1);color:var(--err);}
+
+/* Toast */
+.toast{position:fixed;top:72px;left:50%;transform:translateX(-50%);
+  padding:11px 22px;border-radius:var(--r);font-weight:600;font-size:13px;
+  display:none;z-index:300;white-space:nowrap;}
+.toast.show{display:block;animation:toastIn .35s ease;}
+.toast.ok{background:rgba(61,184,122,.9);backdrop-filter:blur(8px);color:#fff;border:1px solid var(--ok);}
+.toast.err{background:rgba(224,72,72,.9);backdrop-filter:blur(8px);color:#fff;border:1px solid var(--err);}
+@keyframes toastIn{from{opacity:0;transform:translate(-50%,-8px)}to{opacity:1;transform:translate(-50%,0)}}
+
+/* ── MELODY ── */
+.mel-row{display:flex;gap:5px;justify-content:center;flex-wrap:wrap;padding:12px;
+  background:var(--s1);border:1px solid var(--brd);border-radius:var(--r);}
+.mn{width:40px;height:48px;background:var(--s2);border:1px solid var(--brd);border-radius:7px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  font-family:'DM Mono',monospace;font-size:11px;font-weight:500;color:var(--tm);transition:.3s;}
+.mn.on{border-color:var(--gold);background:rgba(212,168,67,.12);color:var(--gold2);transform:scale(1.1);}
+.mn.done{border-color:var(--ok);background:rgba(61,184,122,.1);color:var(--ok);}
+.mn.bad{border-color:var(--err);background:rgba(224,72,72,.08);color:var(--err);}
+.mn-i{font-size:7px;color:var(--td);margin-top:1px;}
+
+/* Metre display */
+.metre-badge{display:inline-flex;align-items:center;gap:6px;
+  background:rgba(212,168,67,.08);border:1px solid rgba(212,168,67,.2);
+  border-radius:8px;padding:4px 10px;font-family:'DM Mono',monospace;font-size:12px;color:var(--gold2);}
+.time-sig{display:inline-flex;flex-direction:column;align-items:center;line-height:1;
+  font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:700;color:var(--gold);}
+
+/* ── RHYTHM ── */
+.rhy-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
+.beat-grid{display:flex;gap:5px;flex-wrap:wrap;background:var(--s1);border:1px solid var(--brd);
+  border-radius:var(--r);padding:12px;}
+.beat{display:flex;flex-direction:column;align-items:center;justify-content:center;
+  min-width:42px;height:52px;background:var(--s2);border:1px solid var(--brd);
+  border-radius:7px;font-size:16px;transition:.15s;flex-shrink:0;cursor:default;position:relative;}
+.beat.strong{border-color:var(--brd2);}
+.beat.on{background:rgba(212,168,67,.18);border-color:var(--gold);transform:scale(1.1);}
+.beat.hit{background:rgba(61,184,122,.12);border-color:var(--ok);}
+.beat.miss{background:rgba(224,72,72,.08);border-color:var(--err);}
+.beat-n{font-size:8px;color:var(--td);margin-top:2px;font-family:'DM Mono',monospace;}
+.beat-sub{font-size:9px;color:var(--td);position:absolute;bottom:3px;}
+
+.metro-row{display:flex;align-items:center;justify-content:center;gap:6px;padding:9px;}
+.mdot{width:10px;height:10px;border-radius:50%;background:var(--brd);transition:.1s;flex-shrink:0;}
+.mdot.on{background:var(--gold);box-shadow:0 0 8px rgba(212,168,67,.55);transform:scale(1.35);}
+.metro-bpm{font-family:'DM Mono',monospace;font-size:11px;color:var(--td);margin-left:8px;}
+
+.tap-zone{background:var(--s1);border:2px dashed var(--brd);border-radius:var(--r);
+  padding:24px;text-align:center;cursor:pointer;user-select:none;transition:.1s;position:relative;overflow:hidden;}
+.tap-zone:active,.tap-zone.tapped{background:rgba(212,168,67,.07);border-color:var(--gold);transform:scale(.99);}
+.tap-icon{font-size:32px;margin-bottom:6px;}
+.tap-hint{color:var(--tm);font-size:12px;}
+.tap-bpm{font-family:'DM Mono',monospace;font-size:24px;color:var(--gold2);font-weight:500;margin-top:6px;}
+.rpl{position:absolute;top:50%;left:50%;width:0;height:0;background:rgba(212,168,67,.18);
+  border-radius:50%;transform:translate(-50%,-50%);pointer-events:none;}
+.rpl.go{animation:rplA .5s ease;}
+@keyframes rplA{0%{width:0;height:0;opacity:1}100%{width:280px;height:280px;opacity:0}}
+
+/* ── DIFF TEST ── */
+#diff{background:var(--bg);}
+.diff-body{flex:1;padding:14px;display:flex;flex-direction:column;gap:12px;overflow-y:auto;}
+.diff-q{background:var(--s1);border:1px solid var(--brd);border-radius:var(--r);padding:16px;}
+.dq-type{font-size:9px;text-transform:uppercase;letter-spacing:2px;color:var(--td);margin-bottom:6px;}
+.dq-text{font-family:'Cormorant Garamond',serif;font-size:16px;color:var(--gold2);margin-bottom:12px;line-height:1.4;}
+.abc-row{display:flex;flex-direction:column;gap:7px;}
+.abc-btn{display:flex;align-items:center;gap:10px;padding:11px 14px;
+  background:var(--s2);border:1px solid var(--brd);border-radius:var(--rs);
+  cursor:pointer;transition:.2s;font-family:'DM Sans',sans-serif;}
+.abc-btn:hover{border-color:var(--gold);}
+.abc-btn.sel{border-color:var(--gold);background:rgba(212,168,67,.08);}
+.abc-btn.correct{border-color:var(--ok);background:rgba(61,184,122,.08);}
+.abc-btn.wrong{border-color:var(--err);background:rgba(224,72,72,.08);}
+.abc-lbl{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:700;color:var(--gold);min-width:20px;}
+.abc-txt{font-size:12px;color:var(--tm);flex:1;}
+.abc-play{background:var(--s1);border:1px solid var(--brd);border-radius:6px;
+  padding:4px 9px;font-size:11px;color:var(--tm);cursor:pointer;transition:.2s;white-space:nowrap;}
+.abc-play:hover{border-color:var(--gold);color:var(--gold);}
+.diff-ctrl{display:flex;gap:7px;margin-top:4px;}
+.diff-score{background:var(--s1);border:1px solid var(--brd);border-radius:var(--r);
+  padding:14px;display:flex;justify-content:space-between;align-items:center;}
+.ds-lbl{font-size:12px;color:var(--tm);}
+.ds-val{font-family:'DM Mono',monospace;font-size:16px;color:var(--gold2);}
+
+/* EXAM */
+.step-bar{display:flex;gap:3px;padding:12px 14px;}
+.spip{flex:1;height:3px;border-radius:2px;background:var(--brd);transition:.4s;}
+.spip.done{background:var(--ok);}
+.spip.on{background:var(--gold);}
+.ex-sec-ttl{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--gold2);padding:0 14px 5px;}
+.ex-ctr{font-size:11px;color:var(--tm);padding:0 14px 12px;}
+
+/* PROFILE */
+.pf-hdr{padding:20px 14px 12px;text-align:center;}
+.pf-av{width:70px;height:70px;border-radius:50%;background:linear-gradient(135deg,var(--gold),#7a5218);
+  display:flex;align-items:center;justify-content:center;font-size:30px;
+  margin:0 auto 10px;border:3px solid rgba(212,168,67,.25);}
+.pf-name{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--gold2);}
+.pf-lvl{font-size:11px;color:var(--tm);margin-top:2px;}
+.sg{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;padding:0 14px 12px;}
+.sc{background:var(--s1);border:1px solid var(--brd);border-radius:var(--rs);padding:12px 9px;text-align:center;}
+.sc-n{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:700;color:var(--gold2);line-height:1;}
+.sc-l{font-size:9px;color:var(--td);margin-top:2px;text-transform:uppercase;letter-spacing:.4px;}
+.ch-sec{padding:0 14px 12px;}
+.ch-ttl{font-size:10px;color:var(--td);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;}
+.bar-ch{display:flex;gap:6px;align-items:flex-end;height:70px;}
+.bc{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;}
+.bf{width:100%;border-radius:3px 3px 0 0;background:linear-gradient(180deg,var(--gold2),var(--gold));min-height:4px;}
+.bl{font-size:8px;color:var(--td);}
+.ms-list{padding:0 14px 24px;display:flex;flex-direction:column;gap:6px;}
+.ms-row{background:var(--s1);border:1px solid var(--brd);border-radius:var(--rs);
+  padding:10px 14px;display:flex;align-items:center;gap:10px;}
+.ms-ic{font-size:18px;}
+.ms-inf{flex:1;}
+.ms-nm{font-size:12px;color:var(--text);}
+.ms-b{height:3px;background:var(--brd);border-radius:2px;margin-top:3px;overflow:hidden;}
+.ms-bf{height:100%;border-radius:2px;}
+.ms-p{font-family:'DM Mono',monospace;font-size:12px;font-weight:500;}
+
+/* SETTINGS */
+.set-sec{padding:9px 14px;}
+.set-ttl{font-size:9px;text-transform:uppercase;letter-spacing:1.5px;color:var(--td);margin-bottom:7px;padding:0 2px;}
+.set-row{background:var(--s1);border:1px solid var(--brd);border-radius:var(--rs);
+  padding:11px 14px;margin-bottom:5px;display:flex;align-items:center;justify-content:space-between;}
+.set-inf{flex:1;}
+.set-nm{font-size:12px;color:var(--text);}
+.set-ds{font-size:10px;color:var(--tm);margin-top:1px;}
+.tog{width:40px;height:21px;border-radius:11px;background:var(--brd);cursor:pointer;
+  position:relative;transition:.2s;border:none;flex-shrink:0;}
+.tog.on{background:var(--gold);}
+.tog::after{content:'';position:absolute;top:2px;left:2px;width:17px;height:17px;
+  border-radius:50%;background:white;transition:.2s;}
+.tog.on::after{left:21px;}
+.set-sel{background:var(--s2);border:1px solid var(--brd);color:var(--text);
+  padding:5px 8px;border-radius:7px;font-size:11px;font-family:'DM Mono',monospace;cursor:pointer;}
+.slw{display:flex;align-items:center;gap:7px;}
+input[type=range]{-webkit-appearance:none;width:100px;height:3px;border-radius:2px;background:var(--brd);outline:none;}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;border-radius:50%;background:var(--gold);cursor:pointer;}
+.slv{font-family:'DM Mono',monospace;font-size:10px;color:var(--gold2);width:34px;}
+
+::-webkit-scrollbar{width:3px;}
+::-webkit-scrollbar-thumb{background:var(--brd);border-radius:2px;}
+</style>
+</head>
+<body>
+<div class="toast" id="toast"></div>
+
+<!-- SPLASH -->
+<div class="screen active" id="splash">
+  <div class="sp-wrap">
+    <div class="sp-logo">🎼</div>
+    <div class="sp-tag">Türkiye · Müzik Eğitimi</div>
+    <div class="sp-title">BilsemMüzik &</div>
+    <div class="sp-title">Konservatuvar</div>
+    <div class="sp-sub">Hazırlık Kursu</div>
+    <div class="sp-bar"><div class="sp-fill"></div></div>
+  </div>
+</div>
+
+<!-- HOME -->
+<div class="screen" id="home">
+  <div class="home-hero">
+    <div class="home-logo-wrap">
+      <div class="home-logo-icon">🎼</div>
+      <div class="home-brand">
+        <div class="home-brand-main">BilsemMüzik & Konservatuvar</div>
+        <div class="home-brand-sub">Hazırlık Kursu · Kulak Eğitimi</div>
+      </div>
+    </div>
+    <div class="home-tagline">Müzik sınavlarına profesyonel hazırlık</div>
+  </div>
+  <div class="prog-strip">
+    <div class="streak-box">
+      <div class="streak-n">7</div>
+      <div class="streak-l">🔥 Gün</div>
+    </div>
+    <div class="prog-info">
+      <div class="pi-row"><span class="pi-lbl">Haftalık Başarı</span><span class="pi-val" id="wAcc">78%</span></div>
+      <div class="pi-bar"><div class="pi-fill" id="wBar" style="width:78%"></div></div>
+      <div class="pi-row" style="margin-top:5px"><span class="pi-lbl">Bugün</span><span class="pi-val">3 egzersiz</span></div>
+    </div>
+  </div>
+
+  <div class="sec-lbl">Tekrar Modülleri</div>
+  <div class="mods-grid">
+    <div class="mod-card" style="--cc:#d4a843;--cg:linear-gradient(135deg,rgba(212,168,67,.08),transparent)" onclick="goTo('single')">
+      <div class="mod-sc" id="scSingle">--</div>
+      <div class="mod-ico">🎵</div><div class="mod-ttl">Tek Ses</div><div class="mod-dsc">Nota algılama</div>
+    </div>
+    <div class="mod-card" style="--cc:#4f8fe0;--cg:linear-gradient(135deg,rgba(79,143,224,.08),transparent)" onclick="goTo('double')">
+      <div class="mod-sc" id="scDouble">--</div>
+      <div class="mod-ico">🎶</div><div class="mod-ttl">Çift Ses</div><div class="mod-dsc">Aralık tanıma</div>
+    </div>
+    <div class="mod-card" style="--cc:#9a5ae0;--cg:linear-gradient(135deg,rgba(154,90,224,.08),transparent)" onclick="goTo('triple')">
+      <div class="mod-sc" id="scTriple">--</div>
+      <div class="mod-ico">🎼</div><div class="mod-ttl">Üç Ses</div><div class="mod-dsc">Major · Minor · Dim · Aug</div>
+    </div>
+    <div class="mod-card" style="--cc:#e07a9a;--cg:linear-gradient(135deg,rgba(224,122,154,.08),transparent)" onclick="goTo('four')">
+      <div class="mod-sc" id="scFour">--</div>
+      <div class="mod-ico">🎹</div><div class="mod-ttl">Dört Ses</div><div class="mod-dsc">7li akorlar</div>
+    </div>
+    <div class="mod-card" style="--cc:#3db87a;--cg:linear-gradient(135deg,rgba(61,184,122,.08),transparent)" onclick="goTo('melody')">
+      <div class="mod-sc" id="scMelody">--</div>
+      <div class="mod-ico">🎻</div><div class="mod-ttl">Ezgi Tekrarı</div><div class="mod-dsc">Melodik yapılar</div>
+    </div>
+    <div class="mod-card" style="--cc:#e07a3a;--cg:linear-gradient(135deg,rgba(224,122,58,.08),transparent)" onclick="goTo('rhythm')">
+      <div class="mod-sc" id="scRhythm">--</div>
+      <div class="mod-ico">🥁</div><div class="mod-ttl">Ritim Tekrarı</div><div class="mod-dsc">2/4 · 4/4 kalıplar</div>
+    </div>
+  </div>
+
+  <div class="exam-wrap">
+    <button class="exam-btn" onclick="goTo('exam')">🎓 Konservatuvar Sınav Simülasyonu</button>
+  </div>
+  <div class="diff-wrap" style="padding-bottom:0">
+    <button class="diff-btn" onclick="goTo('diff')">🔍 Farkı Bul Testi — BİLSEM & Konservatuvar</button>
+  </div>
+  <div class="diff-wrap">
+    <button class="diff-btn" style="background:linear-gradient(135deg,#3db87a,#1a7a4a)" onclick="goTo('upload')">📂 Kendi İçeriğini Yükle</button>
+  </div>
+
+  <div class="bnav">
+    <button class="bni on" onclick="goTo('home')"><span class="ni">🏠</span>Menü</button>
+    <button class="bni" onclick="goTo('profile')"><span class="ni">📊</span>İlerleme</button>
+    <button class="bni" onclick="goTo('upload')"><span class="ni">📂</span>Yükle</button>
+    <button class="bni" onclick="goTo('settings')"><span class="ni">⚙️</span>Ayarlar</button>
+  </div>
+</div>
+
+<!-- TEK SES -->
+<div class="screen" id="single">
+  <div class="hdr">
+    <div class="hdr-back" onclick="goTo('home')">←</div>
+    <div class="hdr-title">Tek Ses Tekrarı</div>
+    <div class="hdr-chip" id="sinQ">1/5</div>
+  </div>
+  <div class="ex-body">
+    <div class="card card-pad" id="sinDisplay">
+      <div class="nc-ph">🎵</div>
+      <div style="color:var(--td);font-size:12px;text-align:center">▶ Çal butonuna basın</div>
+    </div>
+    <div class="wv-wrap"><canvas id="wv1"></canvas></div>
+    <div class="pm">
+      <div class="pm-lbl">Pitch Dedektörü</div>
+      <div class="pm-track">
+        <div class="pm-zone" style="left:35%;width:30%"></div>
+        <div class="pm-mark"></div>
+        <div class="pm-needle" id="sinNeedle" style="left:50%"></div>
+      </div>
+      <div class="pm-lbls"><span>♭♭</span><span>♭</span><span>✓</span><span>♯</span><span>♯♯</span></div>
+      <div class="pm-row"><span class="pm-rl">Algılanan Nota</span><span class="pm-rv" id="sinDet">—</span></div>
+      <div class="pm-row"><span class="pm-rl">Frekans</span><span class="pm-rv" id="sinHz">— Hz</span></div>
+    </div>
+    <div class="acc-wrap">
+      <svg class="acc-svg" viewBox="0 0 120 120">
+        <circle cx="60" cy="60" r="48" fill="none" stroke="var(--brd)" stroke-width="8"/>
+        <circle cx="60" cy="60" r="48" fill="none" stroke="url(#gg)" stroke-width="8"
+          stroke-linecap="round" stroke-dasharray="301.6" stroke-dashoffset="301.6"
+          id="accRing" transform="rotate(-90 60 60)" style="transition:stroke-dashoffset .5s"/>
+        <defs><linearGradient id="gg" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#fde8a0"/><stop offset="100%" stop-color="#d4a843"/>
+        </linearGradient></defs>
+        <text x="60" y="56" text-anchor="middle" fill="var(--gold2)" font-family="Cormorant Garamond" font-size="24" font-weight="700" id="accPct">0%</text>
+        <text x="60" y="70" text-anchor="middle" fill="var(--tm)" font-family="DM Sans" font-size="9" id="accLbl">DOĞRULUK</text>
+      </svg>
+      <div class="acc-grade" id="accGr" style="background:var(--s2);border:1px solid var(--brd);color:var(--tm)">Çalmayı bekliyor…</div>
+    </div>
+    <div class="ctrl">
+      <button class="btn btn-sec" onclick="sinPlay()">▶ Çal</button>
+      <button class="btn btn-gold" id="sinMic" onclick="sinToggle()">🎤 Söyle</button>
+      <button class="btn btn-info" onclick="sinNext()">Sonraki →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ÇİFT SES -->
+<div class="screen" id="double">
+  <div class="hdr">
+    <div class="hdr-back" onclick="goTo('home')">←</div>
+    <div class="hdr-title">Çift Ses Tekrarı</div>
+    <div class="hdr-chip" id="dblQ">1/4</div>
+  </div>
+  <div class="ex-body">
+    <div class="notes-row" id="dblNotes">
+      <div class="note-card"><div class="nc-ph">🎵</div><div class="nc-sub">1. Nota</div></div>
+      <div style="display:flex;align-items:center;padding:0 4px;flex-direction:column;gap:3px">
+        <div style="font-size:20px;color:var(--td)">+</div>
+        <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--td);text-align:center" id="dblHint">?</div>
+      </div>
+      <div class="note-card"><div class="nc-ph">🎵</div><div class="nc-sub">2. Nota</div></div>
+    </div>
+    <div class="wv-wrap"><canvas id="wv2"></canvas></div>
+    <div class="card card-pad">
+      <div class="plbl">Aralık Türünü Seç</div>
+      <div class="cgrid" id="dblChoices"></div>
+    </div>
+    <div class="ctrl">
+      <button class="btn btn-sec" onclick="dblPlay()">▶ Çal</button>
+      <button class="btn btn-gold" onclick="dblPlay()">🔄 Tekrar</button>
+      <button class="btn btn-info" onclick="dblCheck()">✓ Onayla</button>
+    </div>
+  </div>
+</div>
+
+<!-- ÜÇ SES -->
+<div class="screen" id="triple">
+  <div class="hdr">
+    <div class="hdr-back" onclick="goTo('home')">←</div>
+    <div class="hdr-title">Üç Ses — Akor</div>
+    <div class="hdr-chip" id="triQ">1/4</div>
+  </div>
+  <div class="ex-body">
+    <div class="notes-row" id="triNotes">
+      <div class="note-card"><div class="nc-ph" style="font-size:26px">♩</div></div>
+      <div class="note-card"><div class="nc-ph" style="font-size:26px">♩</div></div>
+      <div class="note-card"><div class="nc-ph" style="font-size:26px">♩</div></div>
+    </div>
+    <div class="wv-wrap"><canvas id="wv3"></canvas></div>
+    <div class="card card-pad">
+      <div class="plbl">Akor Türü</div>
+      <div class="cgrid" id="triChoices"></div>
+    </div>
+    <div class="card card-pad">
+      <div class="plbl">Çevirim</div>
+      <div style="display:flex;gap:6px" id="triInv"></div>
+    </div>
+    <div class="ctrl">
+      <button class="btn btn-sec" onclick="triPlay()">▶ Akor Çal</button>
+      <button class="btn btn-gold" onclick="triPlay()">🔄 Tekrar</button>
+      <button class="btn btn-info" onclick="triCheck()">✓ Onayla</button>
+    </div>
+  </div>
+</div>
+
+<!-- DÖRT SES -->
+<div class="screen" id="four">
+  <div class="hdr">
+    <div class="hdr-back" onclick="goTo('home')">←</div>
+    <div class="hdr-title">Dört Ses — 7li Akor</div>
+    <div class="hdr-chip" id="fourQ">1/4</div>
+  </div>
+  <div class="ex-body">
+    <div class="notes-row" id="fourNotes">
+      <div class="note-card"><div class="nc-ph" style="font-size:22px">♩</div></div>
+      <div class="note-card"><div class="nc-ph" style="font-size:22px">♩</div></div>
+      <div class="note-card"><div class="nc-ph" style="font-size:22px">♩</div></div>
+      <div class="note-card"><div class="nc-ph" style="font-size:22px">♩</div></div>
+    </div>
+    <div class="wv-wrap"><canvas id="wv6"></canvas></div>
+    <div class="card card-pad">
+      <div class="plbl">7li Akor Türü</div>
+      <div class="cgrid" id="fourChoices"></div>
+    </div>
+    <div class="card card-pad">
+      <div class="plbl">Çevirim</div>
+      <div style="display:flex;gap:5px;flex-wrap:wrap" id="fourInv"></div>
+    </div>
+    <div class="card card-pad" style="font-size:11px;color:var(--tm)" id="fourInfo">Akorı dinleyin ve türünü belirleyin.</div>
+    <div class="ctrl">
+      <button class="btn btn-sec" onclick="fourPlay()">▶ Akor Çal</button>
+      <button class="btn btn-gold" onclick="fourPlay()">🔄 Tekrar</button>
+      <button class="btn btn-info" onclick="fourCheck()">✓ Onayla</button>
+    </div>
+  </div>
+</div>
+
+<!-- EZGİ -->
+<div class="screen" id="melody">
+  <div class="hdr">
+    <div class="hdr-back" onclick="goTo('home')">←</div>
+    <div class="hdr-title">Ezgi Tekrarı</div>
+    <div class="hdr-chip" id="melQ">1/3</div>
+  </div>
+  <div class="ex-body">
+    <div class="card card-pad" style="display:flex;align-items:center;justify-content:space-between">
+      <div>
+        <div style="font-size:10px;color:var(--td);text-transform:uppercase;letter-spacing:1px;margin-bottom:3px">Ezgi</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:15px;color:var(--gold2)" id="melName">—</div>
+      </div>
+      <div id="melMetre" class="metre-badge">—</div>
+    </div>
+    <div class="mel-row" id="melNotes"><div style="color:var(--td);font-size:12px;padding:8px">▶ Ezgiyi çalın</div></div>
+    <div class="wv-wrap"><canvas id="wv4"></canvas></div>
+    <div class="card card-pad">
+      <div class="plbl">Nota Sonuçları</div>
+      <div id="melResults" style="display:flex;flex-direction:column;gap:5px">
+        <div style="color:var(--td);font-size:11px;text-align:center;padding:8px">Önce ezgiyi çalın, sonra söyleyin</div>
+      </div>
+    </div>
+    <div class="card card-pad" style="display:flex;justify-content:space-between;align-items:center">
+      <span style="font-size:11px;color:var(--tm)">Genel Uyum</span>
+      <span style="font-family:'DM Mono',monospace;font-size:18px;color:var(--gold2)" id="melAcc">—</span>
+    </div>
+    <div class="ctrl">
+      <button class="btn btn-sec" onclick="melPlay()">▶ Ezgiyi Çal</button>
+      <button class="btn btn-gold" id="melMic" onclick="melRecord()">🎤 Söyle</button>
+      <button class="btn btn-info" onclick="melNext()">Yeni Ezgi</button>
+    </div>
+  </div>
+</div>
+
+<!-- RİTİM -->
+<div class="screen" id="rhythm">
+  <div class="hdr">
+    <div class="hdr-back" onclick="goTo('home')">←</div>
+    <div class="hdr-title">Ritim Tekrarı</div>
+    <div class="hdr-chip" id="rhyQ">1/6</div>
+  </div>
+  <div class="ex-body">
+
+    <!-- Soru bilgisi -->
+    <div class="card card-pad" style="text-align:center">
+      <div style="font-size:11px;color:var(--td);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:8px" id="rhyQType">Ritimi dinle</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:16px;color:var(--gold2);margin-bottom:10px" id="rhyQText">▶ Çal butonuna basın</div>
+      <button onclick="rhyPlay()" style="padding:12px 28px;background:linear-gradient(135deg,rgba(224,122,58,.18),rgba(224,122,58,.06));border:1px solid rgba(224,122,58,.45);border-radius:var(--rs);color:var(--warm);font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;cursor:pointer" id="rhyPlayBtn">
+        ▶ Ritmi Çal
+      </button>
+    </div>
+
+    <!-- Metronom noktaları -->
+    <div class="card" style="padding:8px 12px">
+      <div class="metro-row" id="metroDots"></div>
+    </div>
+
+    <!-- A / B / C Şıkları -->
+    <div style="font-size:10px;color:var(--td);text-transform:uppercase;letter-spacing:1.5px;padding:0 2px 6px">Hangisi duyduğun ritim?</div>
+    <div style="display:flex;flex-direction:column;gap:8px" id="rhyChoices">
+      <div style="color:var(--td);font-size:12px;text-align:center;padding:12px">Önce ritmi çalın…</div>
+    </div>
+
+    <!-- Sonuç -->
+    <div class="card card-pad" id="rhyResult" style="display:none;text-align:center">
+      <div style="font-size:40px;margin-bottom:6px" id="rhyResultEmoji">—</div>
+      <div style="font-family:'DM Mono',monospace;font-size:22px;color:var(--gold2)" id="rhyResultPct">—</div>
+      <div style="font-size:12px;color:var(--tm);margin-top:4px" id="rhyResultMsg">—</div>
+    </div>
+
+    <!-- Puan -->
+    <div class="card card-pad" style="display:flex;justify-content:space-between;align-items:center">
+      <span style="font-size:11px;color:var(--tm)">Toplam Puan</span>
+      <span style="font-family:'DM Mono',monospace;font-size:16px;color:var(--gold2)" id="rhyScore">0 / 0</span>
+    </div>
+
+    <div class="ctrl">
+      <button class="btn btn-gold" onclick="rhyNext()">Yeni Ritim →</button>
+    </div>
+  </div>
+</div>
+
+<!-- FARKI BUL TESTİ -->
+<div class="screen" id="diff">
+  <div class="hdr">
+    <div class="hdr-back" onclick="goTo('home')">←</div>
+    <div class="hdr-title">🔍 Farkı Bul Testi</div>
+    <div class="hdr-chip" id="diffChip">0/0</div>
+  </div>
+  <div class="diff-body">
+    <div class="card card-pad" style="text-align:center">
+      <div style="font-size:10px;color:var(--td);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:5px">Test Türü Seç</div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;justify-content:center" id="diffTypeRow">
+        <button class="cbtn sel" onclick="setDiffType('pitch',this)">🎵 Hangi Ses Farklı</button>
+        <button class="cbtn" onclick="setDiffType('melody',this)">🎻 Hangi Ezgi Farklı</button>
+        <button class="cbtn" onclick="setDiffType('rhythm',this)">🥁 Hangi Ritim Farklı</button>
+        <button class="cbtn" onclick="setDiffType('same_pitch',this)">🎵 Hangisi Aynı</button>
+        <button class="cbtn" onclick="setDiffType('same_melody',this)">🎻 Hangisi Aynı Ezgi</button>
+        <button class="cbtn" onclick="setDiffType('same_rhythm',this)">🥁 Hangisi Aynı Ritim</button>
+      </div>
+    </div>
+    <div class="diff-q" id="diffQ">
+      <div class="dq-type" id="dqType">—</div>
+      <div class="dq-text" id="dqText">Başlamak için tür seçin ve ▶ Yeni Soru butonuna basın.</div>
+      <div class="abc-row" id="dqABC"></div>
+    </div>
+    <div class="diff-score">
+      <span class="ds-lbl">Soru</span>
+      <span class="ds-val" id="diffQNum">—</span>
+      <span class="ds-lbl" style="margin-left:16px">Toplam Puan</span>
+      <span class="ds-val" id="diffTotal">0 / 0</span>
+    </div>
+    <div class="diff-ctrl">
+      <button class="btn btn-sec" style="flex:1;padding:13px 8px;border-radius:9px;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;display:flex;align-items:center;justify-content:center;gap:5px;transition:.2s;border:none;background:var(--s2);border:1px solid var(--brd);color:var(--tm)" onclick="newDiffQ()">▶ Yeni Soru</button>
+      <button style="flex:1.4;padding:13px 8px;border-radius:9px;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:5px;transition:.2s;border:1px solid rgba(212,168,67,.5);background:linear-gradient(135deg,rgba(212,168,67,.2),rgba(212,168,67,.06));color:var(--gold2)" onclick="checkDiff()">✓ Cevabı Onayla</button>
+      <button style="flex:.7;padding:13px 8px;border-radius:9px;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:12px;display:flex;align-items:center;justify-content:center;transition:.2s;border:1px solid var(--brd);background:var(--s2);color:var(--tm)" onclick="goTo('home')">← Menü</button>
+    </div>
+  </div>
+</div>
+
+<!-- SINAV -->
+<div class="screen" id="exam">
+  <div class="hdr">
+    <div class="hdr-back" onclick="goTo('home')">←</div>
+    <div class="hdr-title">Sınav Simülasyonu</div>
+    <div class="hdr-chip" id="examTimer">06:00</div>
+  </div>
+  <div class="step-bar" id="examBar"></div>
+  <div class="ex-sec-ttl" id="examTtl">Bölüm 1</div>
+  <div class="ex-ctr" id="examCtr"></div>
+  <div style="flex:1;overflow-y:auto;padding:0 14px 14px" id="examContent"></div>
+</div>
+
+<!-- PROFİL -->
+<div class="screen" id="profile">
+  <div class="hdr">
+    <div class="hdr-back" onclick="goTo('home')">←</div>
+    <div class="hdr-title">İlerleme & Profil</div>
+    <div class="hdr-chip">Seviye 3</div>
+  </div>
+  <div style="overflow-y:auto;flex:1">
+    <div class="pf-hdr">
+      <div class="pf-av">🎭</div>
+      <div class="pf-name">Müzik Öğrencisi</div>
+      <div class="pf-lvl">🎯 Orta Seviye · 127 Egzersiz Tamamlandı</div>
+    </div>
+    <div class="sg">
+      <div class="sc"><div class="sc-n">7</div><div class="sc-l">🔥 Gün</div></div>
+      <div class="sc"><div class="sc-n">127</div><div class="sc-l">Egzersiz</div></div>
+      <div class="sc"><div class="sc-n" id="pAvg">78%</div><div class="sc-l">Ort. Başarı</div></div>
+    </div>
+    <div class="ch-sec">
+      <div class="ch-ttl">Son 7 Gün</div>
+      <div class="bar-ch" id="weekChart"></div>
+    </div>
+    <div class="ms-list" id="modScores"></div>
+  </div>
+  <div class="bnav">
+    <button class="bni" onclick="goTo('home')"><span class="ni">🏠</span>Menü</button>
+    <button class="bni on"><span class="ni">📊</span>İlerleme</button>
+    <button class="bni" onclick="goTo('settings')"><span class="ni">⚙️</span>Ayarlar</button>
+  </div>
+</div>
+
+<!-- YÜKLEME EKRANI -->
+<div class="screen" id="upload">
+  <div class="hdr">
+    <div class="hdr-back" onclick="goTo('home')">←</div>
+    <div class="hdr-title">📂 Kendi İçeriğini Yükle</div>
+    <div class="hdr-chip" id="uploadChip">0 öge</div>
+  </div>
+  <div style="flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:12px">
+
+    <!-- AÇIKLAMA -->
+    <div class="card card-pad" style="background:rgba(61,184,122,.06);border-color:rgba(61,184,122,.25)">
+      <div style="font-size:13px;color:#3db87a;font-weight:600;margin-bottom:6px">📌 Nasıl Çalışır?</div>
+      <div style="font-size:11px;color:var(--tm);line-height:1.7">
+        • <b style="color:var(--text)">Ses Dosyası:</b> Telefon/bilgisayardan ses dosyası seç → dinle → modüle ekle<br>
+        • <b style="color:var(--text)">Ezgi (MIDI nota):</b> Do-Re-Mi gibi nota isimleri yaz → uygulama piano sesiyle çalar<br>
+        • <b style="color:var(--text)">Ritim Kalıbı:</b> ♩♪ sembolleri ile kendi kalıbını oluştur<br>
+        • Yüklenen içerikler ilgili modüllerde <span style="color:var(--gold)">★ Özel</span> etiketiyle görünür
+      </div>
+    </div>
+
+    <!-- SES DOSYASI YÜKLEME -->
+    <div class="card card-pad">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px">
+        <span style="font-size:20px">🎵</span>
+        <div>
+          <div style="font-size:13px;font-weight:600;color:var(--text)">Ses Dosyası Yükle</div>
+          <div style="font-size:10px;color:var(--tm)">MP3, WAV, OGG, M4A — kendi kayıtların veya hazır sesler</div>
+        </div>
+      </div>
+
+      <!-- Dosya input — tamamen görünür, doğrudan tıklanır -->
+      <div style="margin-bottom:12px">
+        <div style="background:var(--s2);border:2px solid var(--gold);border-radius:var(--rs);padding:16px;text-align:center">
+          <div style="font-size:28px;margin-bottom:8px">📂</div>
+          <div style="font-size:12px;color:var(--gold2);font-weight:600;margin-bottom:10px">Ses dosyası seç (MP3, WAV, OGG, M4A)</div>
+          <input type="file" id="audioFileInput" accept="audio/*"
+            style="display:block;width:100%;color:var(--text);font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer;background:var(--s3);border:1px solid var(--brd2);border-radius:7px;padding:8px 10px"
+            onchange="handleAudioFiles(this.files)">
+        </div>
+      </div>
+
+      <!-- Seçilen dosya önizleme -->
+      <div id="audioPreview" style="display:none;margin-bottom:12px">
+        <div style="background:rgba(212,168,67,.08);border:1px solid rgba(212,168,67,.25);border-radius:var(--rs);padding:12px">
+          <div style="font-size:11px;color:var(--gold2);font-weight:600;margin-bottom:6px" id="audioFileName">—</div>
+          <audio id="audioPlayer" controls style="width:100%;height:36px;margin-bottom:0;border-radius:6px"></audio>
+        </div>
+      </div>
+
+      <!-- Tür seçimi -->
+      <div style="margin-bottom:10px">
+        <div style="font-size:10px;color:var(--td);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">Bu ses ne için?</div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap" id="audioTypeSelector">
+          <button class="cbtn sel" onclick="selectAudioType(this,'single')">🎵 Tek Ses</button>
+          <button class="cbtn" onclick="selectAudioType(this,'melody')">🎻 Ezgi</button>
+          <button class="cbtn" onclick="selectAudioType(this,'rhythm')">🥁 Ritim</button>
+          <button class="cbtn" onclick="selectAudioType(this,'diff')">🔍 Farkı Bul</button>
+        </div>
+      </div>
+
+      <!-- İsim -->
+      <input type="text" id="audioName" placeholder="İsim ver (örn: Fa Majör Ezgim, Vals Ritmim…)"
+        style="width:100%;background:var(--s2);border:1px solid var(--brd);border-radius:var(--rs);
+        padding:9px 12px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:12px;outline:none;margin-bottom:10px">
+
+      <button onclick="confirmAudioUpload()" style="width:100%;padding:12px;background:linear-gradient(135deg,rgba(61,184,122,.2),rgba(61,184,122,.06));border:1px solid rgba(61,184,122,.4);border-radius:var(--rs);color:#3db87a;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer">
+        ✓ Ses Dosyasını Ekle
+      </button>
+    </div>
+
+    <!-- EZGİ (NOTA) OLUŞTURMA -->
+    <div class="card card-pad">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px">
+        <span style="font-size:20px">🎼</span>
+        <div>
+          <div style="font-size:13px;font-weight:600;color:var(--text)">Ezgi Oluştur</div>
+          <div style="font-size:10px;color:var(--tm)">Nota isimlerini yaz → piano sesiyle çalar</div>
+        </div>
+      </div>
+
+      <!-- Nota klavyesi -->
+      <div style="margin-bottom:10px">
+        <div style="font-size:10px;color:var(--td);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">Notaya Tıkla Ekle</div>
+        <div style="display:flex;gap:4px;flex-wrap:wrap" id="noteKeyboard">
+        </div>
+      </div>
+
+      <!-- Ölçü seçimi -->
+      <div style="display:flex;gap:8px;margin-bottom:10px">
+        <div style="flex:1">
+          <div style="font-size:10px;color:var(--td);text-transform:uppercase;letter-spacing:1px;margin-bottom:5px">Ölçü</div>
+          <div style="display:flex;gap:6px">
+            <button class="cbtn sel" id="mel24btn" onclick="selectMelMetre('2/4',this)">2/4</button>
+            <button class="cbtn" id="mel44btn" onclick="selectMelMetre('4/4',this)">4/4</button>
+          </div>
+        </div>
+        <div style="flex:1">
+          <div style="font-size:10px;color:var(--td);text-transform:uppercase;letter-spacing:1px;margin-bottom:5px">Tempo</div>
+          <select id="melTempo" style="width:100%;background:var(--s2);border:1px solid var(--brd);border-radius:var(--rs);padding:8px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:11px;cursor:pointer">
+            <option value="0.5">Hızlı (♩=120)</option>
+            <option value="0.7" selected>Normal (♩=86)</option>
+            <option value="1.0">Yavaş (♩=60)</option>
+            <option value="1.3">Çok Yavaş</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Yazılan notalar -->
+      <div style="margin-bottom:8px">
+        <div style="font-size:10px;color:var(--td);text-transform:uppercase;letter-spacing:1px;margin-bottom:5px">Ezgi Notaları</div>
+        <div id="melSequence" style="min-height:44px;background:var(--s2);border:1px solid var(--brd);border-radius:var(--rs);padding:8px;display:flex;flex-wrap:wrap;gap:5px;align-items:center">
+          <span style="color:var(--td);font-size:11px">Yukarıdan nota ekleyin…</span>
+        </div>
+      </div>
+
+      <!-- İsim -->
+      <input type="text" id="melName2" placeholder="Ezgi adı (örn: La Minör Motifi)" 
+        style="width:100%;background:var(--s2);border:1px solid var(--brd);border-radius:var(--rs);
+        padding:9px 12px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:12px;outline:none;margin-bottom:10px">
+
+      <div style="display:flex;gap:7px">
+        <button onclick="previewMelody()" style="flex:1;padding:10px;background:var(--s2);border:1px solid var(--brd);border-radius:var(--rs);color:var(--tm);font-family:'DM Sans',sans-serif;font-size:12px;cursor:pointer">▶ Önizle</button>
+        <button onclick="clearMelody()" style="flex:.6;padding:10px;background:var(--s2);border:1px solid var(--brd);border-radius:var(--rs);color:var(--err);font-family:'DM Sans',sans-serif;font-size:12px;cursor:pointer">✕ Temizle</button>
+        <button onclick="saveMelody()" style="flex:1.4;padding:10px;background:linear-gradient(135deg,rgba(212,168,67,.2),rgba(212,168,67,.06));border:1px solid rgba(212,168,67,.4);border-radius:var(--rs);color:var(--gold2);font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;cursor:pointer">✓ Ezgiyi Kaydet</button>
+      </div>
+    </div>
+
+    <!-- RİTİM OLUŞTURMA -->
+    <div class="card card-pad">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px">
+        <span style="font-size:20px">🥁</span>
+        <div>
+          <div style="font-size:13px;font-weight:600;color:var(--text)">Ritim Kalıbı Oluştur</div>
+          <div style="font-size:10px;color:var(--tm)">Nota değerlerine tıkla → kalıp oluşur → kaydet</div>
+        </div>
+      </div>
+
+      <!-- Ölçü + BPM -->
+      <div style="display:flex;gap:8px;margin-bottom:10px">
+        <div style="flex:1">
+          <div style="font-size:10px;color:var(--td);text-transform:uppercase;letter-spacing:1px;margin-bottom:5px">Ölçü</div>
+          <div style="display:flex;gap:6px">
+            <button class="cbtn sel" id="rhy24btn" onclick="selectRhyMetre('2/4',this)">2/4</button>
+            <button class="cbtn" id="rhy44btn" onclick="selectRhyMetre('4/4',this)">4/4</button>
+          </div>
+        </div>
+        <div style="flex:1">
+          <div style="font-size:10px;color:var(--td);text-transform:uppercase;letter-spacing:1px;margin-bottom:5px">BPM</div>
+          <input type="number" id="rhyBPM" value="80" min="40" max="200"
+            style="width:100%;background:var(--s2);border:1px solid var(--brd);border-radius:var(--rs);
+            padding:8px 10px;color:var(--text);font-family:'DM Mono',monospace;font-size:13px;outline:none">
+        </div>
+      </div>
+
+      <!-- Nota değeri butonları -->
+      <div style="margin-bottom:8px">
+        <div style="font-size:10px;color:var(--td);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">Nota Değeri Ekle</div>
+        <div style="display:flex;gap:5px;flex-wrap:wrap">
+          <button onclick="addBeat(2,'𝅗','Yarım')" style="flex:1;min-width:60px;padding:10px 6px;background:var(--s2);border:1px solid var(--brd);border-radius:var(--rs);color:var(--text);font-size:13px;cursor:pointer;text-align:center">
+            <div>𝅗</div><div style="font-size:9px;color:var(--td)">Yarım</div>
+          </button>
+          <button onclick="addBeat(1,'♩','Dörtlük')" style="flex:1;min-width:60px;padding:10px 6px;background:var(--s2);border:1px solid var(--brd);border-radius:var(--rs);color:var(--text);font-size:13px;cursor:pointer;text-align:center">
+            <div>♩</div><div style="font-size:9px;color:var(--td)">Dörtlük</div>
+          </button>
+          <button onclick="addBeat(1.5,'♩·','Noktalı ♩')" style="flex:1;min-width:60px;padding:10px 6px;background:var(--s2);border:1px solid var(--brd);border-radius:var(--rs);color:var(--text);font-size:13px;cursor:pointer;text-align:center">
+            <div>♩·</div><div style="font-size:9px;color:var(--td)">Noktalı</div>
+          </button>
+          <button onclick="addBeat(0.5,'♪','Sekizlik')" style="flex:1;min-width:60px;padding:10px 6px;background:var(--s2);border:1px solid var(--brd);border-radius:var(--rs);color:var(--text);font-size:13px;cursor:pointer;text-align:center">
+            <div>♪</div><div style="font-size:9px;color:var(--td)">Sekizlik</div>
+          </button>
+          <button onclick="addBeat(0.25,'♬','Onaltılık')" style="flex:1;min-width:60px;padding:10px 6px;background:var(--s2);border:1px solid var(--brd);border-radius:var(--rs);color:var(--text);font-size:13px;cursor:pointer;text-align:center">
+            <div>♬</div><div style="font-size:9px;color:var(--td)">1/16</div>
+          </button>
+        </div>
+      </div>
+
+      <!-- Oluşturulan ritim + toplam -->
+      <div style="margin-bottom:8px">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px">
+          <div style="font-size:10px;color:var(--td);text-transform:uppercase;letter-spacing:1px">Oluşturulan Kalıp</div>
+          <div style="font-family:'DM Mono',monospace;font-size:11px" id="rhyTotal" style="color:var(--tm)">Toplam: 0 / 0</div>
+        </div>
+        <div id="rhySequence" style="min-height:54px;background:var(--s2);border:1px solid var(--brd);border-radius:var(--rs);padding:8px;display:flex;flex-wrap:wrap;gap:5px;align-items:center">
+          <span style="color:var(--td);font-size:11px">Nota değeri ekleyin…</span>
+        </div>
+      </div>
+
+      <!-- İsim -->
+      <input type="text" id="rhyLabel" placeholder="Kalıp adı (örn: Benim 4/4 Kalıbım)" 
+        style="width:100%;background:var(--s2);border:1px solid var(--brd);border-radius:var(--rs);
+        padding:9px 12px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:12px;outline:none;margin-bottom:10px">
+
+      <div style="display:flex;gap:7px">
+        <button onclick="previewRhythm2()" style="flex:1;padding:10px;background:var(--s2);border:1px solid var(--brd);border-radius:var(--rs);color:var(--tm);font-family:'DM Sans',sans-serif;font-size:12px;cursor:pointer">▶ Önizle</button>
+        <button onclick="clearRhythm2()" style="flex:.6;padding:10px;background:var(--s2);border:1px solid var(--brd);border-radius:var(--rs);color:var(--err);font-family:'DM Sans',sans-serif;font-size:12px;cursor:pointer">✕ Sil</button>
+        <button onclick="saveRhythm2()" style="flex:1.4;padding:10px;background:linear-gradient(135deg,rgba(212,168,67,.2),rgba(212,168,67,.06));border:1px solid rgba(212,168,67,.4);border-radius:var(--rs);color:var(--gold2);font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;cursor:pointer">✓ Kalıbı Kaydet</button>
+      </div>
+    </div>
+
+    <!-- EKLENEN İÇERİKLER -->
+    <div class="card card-pad">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+        <div style="font-size:13px;font-weight:600;color:var(--text)">📋 Eklenen İçerikler</div>
+        <button onclick="clearAllCustom()" style="font-size:10px;color:var(--err);background:none;border:1px solid rgba(224,72,72,.3);border-radius:6px;padding:3px 8px;cursor:pointer">Tümünü Sil</button>
+      </div>
+      <div id="customList" style="display:flex;flex-direction:column;gap:6px">
+        <div style="color:var(--td);font-size:11px;text-align:center;padding:10px">Henüz içerik eklenmedi</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="bnav">
+    <button class="bni" onclick="goTo('home')"><span class="ni">🏠</span>Menü</button>
+    <button class="bni" onclick="goTo('profile')"><span class="ni">📊</span>İlerleme</button>
+    <button class="bni on"><span class="ni">📂</span>Yükle</button>
+    <button class="bni" onclick="goTo('settings')"><span class="ni">⚙️</span>Ayarlar</button>
+  </div>
+</div>
+
+<!-- AYARLAR -->
+<div class="screen" id="settings">
+  <div class="hdr">
+    <div class="hdr-back" onclick="goTo('home')">←</div>
+    <div class="hdr-title">Ayarlar</div>
+    <div class="hdr-chip">v3.0</div>
+  </div>
+  <div style="overflow-y:auto;flex:1">
+    <div class="set-sec">
+      <div class="set-ttl">Ses Motoru</div>
+      <div class="set-row">
+        <div class="set-inf"><div class="set-nm">Referans Frekans</div><div class="set-ds">A4 standardı</div></div>
+        <select class="set-sel" onchange="ST.refFreq=parseInt(this.value)">
+          <option value="440">440 Hz</option><option value="442">442 Hz</option><option value="443">443 Hz</option>
+        </select>
+      </div>
+      <div class="set-row">
+        <div class="set-inf"><div class="set-nm">Harmonik Zenginlik</div><div class="set-ds">Düşük = daha temiz ses</div></div>
+        <div class="slw">
+          <input type="range" min="4" max="14" value="9" id="setHarm" oninput="ST.harmonics=parseInt(this.value);document.getElementById('harmV').textContent=this.value">
+          <span class="slv" id="harmV">9</span>
+        </div>
+      </div>
+      <div class="set-row">
+        <div class="set-inf"><div class="set-nm">Nota Süresi</div></div>
+        <select class="set-sel" onchange="ST.noteDur=parseFloat(this.value)">
+          <option value="1.5">Kısa (1.5s)</option><option value="2.2" selected>Normal (2.2s)</option><option value="3.2">Uzun (3.2s)</option>
+        </select>
+      </div>
+    </div>
+    <div class="set-sec">
+      <div class="set-ttl">Egzersiz</div>
+      <div class="set-row">
+        <div class="set-inf"><div class="set-nm">Zorluk</div></div>
+        <select class="set-sel" id="difficulty">
+          <option>Başlangıç</option><option selected>Orta</option><option>İleri</option>
+        </select>
+      </div>
+      <div class="set-row">
+        <div class="set-inf"><div class="set-nm">Ritim Temposu (BPM)</div></div>
+        <div class="slw">
+          <input type="range" min="60" max="140" value="84" step="4" id="setBPM" oninput="document.getElementById('bpmV').textContent=this.value">
+          <span class="slv" id="bpmV">84</span>
+        </div>
+      </div>
+    </div>
+    <div class="set-sec">
+      <div class="set-ttl">Bildirimler</div>
+      <div class="set-row">
+        <div class="set-inf"><div class="set-nm">Günlük Hatırlatıcı</div></div>
+        <button class="tog on" onclick="this.classList.toggle('on')"></button>
+      </div>
+    </div>
+
+    <!-- UYGULAMAYI KUR -->
+    <div class="set-sec">
+      <div class="set-ttl">Uygulama</div>
+      <button id="pwaInstallBtn" onclick="installPWA()" style="display:none;width:100%;padding:14px 16px;background:linear-gradient(135deg,rgba(61,184,122,.15),rgba(61,184,122,.05));border:1px solid rgba(61,184,122,.4);border-radius:var(--rs);color:#3db87a;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;cursor:pointer;align-items:center;justify-content:center;gap:10px;margin-bottom:6px">
+        📲 Uygulamayı Telefona Kur
+      </button>
+      <div style="background:var(--s2);border:1px solid var(--brd);border-radius:var(--rs);padding:12px 14px">
+        <div style="font-size:12px;font-weight:600;color:var(--text);margin-bottom:6px">📱 Ana Ekrana Nasıl Eklenir?</div>
+        <div style="font-size:11px;color:var(--tm);line-height:1.8">
+          <b style="color:var(--gold2)">Android (Chrome):</b><br>
+          Tarayıcıda aç → Yukarıdaki butona bas → "Kur" seç<br><br>
+          <b style="color:var(--gold2)">iPhone / iPad (Safari):</b><br>
+          Safari ile aç → Alt menüde 
+          <span style="display:inline-block;background:var(--s3);border:1px solid var(--brd);border-radius:4px;padding:1px 6px;font-size:10px">⬆ Paylaş</span>
+          → <b>"Ana Ekrana Ekle"</b> seç → Ekle<br><br>
+          <div style="font-size:10px;color:var(--td)">Kurulunca tam ekran, internet gerektirmez.</div>
+        </div>
+      </div>
+      <div style="margin-top:8px;background:var(--s2);border:1px solid var(--brd);border-radius:var(--rs);padding:10px 14px;display:flex;justify-content:space-between">
+        <span style="font-size:11px;color:var(--tm)">Versiyon</span>
+        <span style="font-family:'DM Mono',monospace;font-size:11px;color:var(--gold2)">v3.0 — 2025</span>
+      </div>
+    </div>
+  </div>
+  <div class="bnav">
+    <button class="bni" onclick="goTo('home')"><span class="ni">🏠</span>Menü</button>
+    <button class="bni" onclick="goTo('profile')"><span class="ni">📊</span>İlerleme</button>
+    <button class="bni on"><span class="ni">⚙️</span>Ayarlar</button>
+  </div>
+</div>
+
+<script>
+// ════════════════════════════════════════════════════════
+//  GLOBAL STATE
+// ════════════════════════════════════════════════════════
+const ST = {
+  refFreq:440, harmonics:9, noteDur:2.2,
+  scores:{single:null,double:null,triple:null,four:null,melody:null,rhythm:null},
+  audioCtx:null, animFrames:{}, wvPhase:{}, metIv:null
+};
+
+// ════════════════════════════════════════════════════════
+//  NOTA TABLOSU
+// ════════════════════════════════════════════════════════
+const NOTENAMES = ['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'];
+const NOTENAMES_TR = {C:'Do','C#':'Do#',D:'Re','D#':'Re#',E:'Mi',F:'Fa','F#':'Fa#',G:'Sol','G#':'Sol#',A:'La','A#':'La#',B:'Si'};
+const INTERVALS = ['Minor 2nd','Major 2nd','Minor 3rd','Major 3rd','Perfect 4th','Tritone','Perfect 5th','Minor 6th','Major 6th','Minor 7th','Major 7th','Oktav'];
+const ITVL_S = ['m2','M2','m3','M3','P4','TT','P5','m6','M6','m7','M7','P8'];
+const CHORD3 = ['Major','Minor','Diminished','Augmented'];
+const INV3 = ['Temel','1. Çevr.','2. Çevr.'];
+const CHORD7_TYPES = ['Dominant 7','Major 7','Minor 7','Diminished 7','Yarı-Dim 7'];
+const CHORD7_INFO = ['Dom7: 1-M3-P5-m7 — güçlü gerilim','Maj7: 1-M3-P5-M7 — yumuşak jazz','Min7: 1-m3-P5-m7 — hüzünlü','Dim7: 1-m3-TT-dim7 — tam gerilim','ø7: 1-m3-TT-m7 — yarı gerilim'];
+const CHORD7_ITVL = [[0,4,7,10],[0,4,7,11],[0,3,7,10],[0,3,6,9],[0,3,6,10]];
+const INV7 = ['Temel','1. Çevr.','2. Çevr.','3. Çevr.'];
+
+function midiHz(m){ return ST.refFreq*Math.pow(2,(m-69)/12); }
+function hzMidi(hz){ return Math.round(69+12*Math.log2(hz/ST.refFreq)); }
+function noteName(m){ return NOTENAMES_TR[NOTENAMES[m%12]]||NOTENAMES[m%12]; }
+function noteOct(m){ return Math.floor(m/12)-1; }
+function sleep(ms){ return new Promise(r=>setTimeout(r,ms)); }
+
+// ════════════════════════════════════════════════════════
+//  AKUSTIK PİYANO SES MOTORU
+//  Additive synthesis — inharmonic partials — ADSR — damper pedal
+// ════════════════════════════════════════════════════════
+function getCtx(){
+  if(!ST.audioCtx) ST.audioCtx=new(window.AudioContext||window.webkitAudioContext)();
+  if(ST.audioCtx.state==='suspended') ST.audioCtx.resume();
+  return ST.audioCtx;
+}
+
+function piano(midi, dur){
+  const ctx=getCtx(), now=ctx.currentTime;
+  const f0=midiHz(midi), d=dur||ST.noteDur, nH=ST.harmonics||9;
+  // İnharmonicity katsayısı (gerçek piyano teli fiziği)
+  const B = 0.00012*Math.pow((midi-20)/88,2.2)+0.00002;
+  // Output zinciri: master -> EQ hi-pass -> destination
+  const master=ctx.createGain();
+  const hp=ctx.createBiquadFilter(); hp.type='highpass'; hp.frequency.value=50;
+  const lp=ctx.createBiquadFilter(); lp.type='lowpass'; lp.frequency.value=7200;
+  const comp=ctx.createDynamicsCompressor();
+  comp.threshold.value=-18; comp.knee.value=8; comp.ratio.value=3;
+  master.connect(hp); hp.connect(lp); lp.connect(comp); comp.connect(ctx.destination);
+
+  // Harmonik amplitüd zarfı — gerçek piyano spektrum analizi
+  const amps=[0,0.52,0.25,0.15,0.10,0.07,0.05,0.04,0.03,0.025,0.02,0.015,0.012,0.009,0.007];
+  for(let n=1;n<=Math.min(nH,14);n++){
+    // fn = n*f0*sqrt(1+B*n²)  — inharmonik kısmi frekans
+    const fn = n*f0*Math.sqrt(1+B*n*n);
+    if(fn>ctx.sampleRate/2.2) break; // Nyquist sınırı
+    const osc=ctx.createOscillator();
+    const gain=ctx.createGain();
+    osc.connect(gain); gain.connect(master);
+    osc.type='sine';
+    osc.frequency.setValueAtTime(fn,now);
+    // Hafif pitch modülasyonu (string chatter — ilk 15ms)
+    osc.frequency.linearRampToValueAtTime(fn*(1+0.0003),now+0.015);
+    osc.frequency.linearRampToValueAtTime(fn,now+0.05);
+    const a=amps[n]||0.003;
+    // ADSR: piyano karakteristiği
+    // Attack: 1-3ms (nota oktavına göre — tizde daha hızlı)
+    const attk=0.001+0.002*(1-midi/120);
+    // Decay: nota oktav+harmonik'e göre
+    const dcy=Math.max(0.3,(2.0-(midi-36)*0.018)*(1+n*0.05));
+    const sus=Math.max(0.015,a*0.22);
+    gain.gain.setValueAtTime(0,now);
+    gain.gain.linearRampToValueAtTime(a,now+attk);
+    gain.gain.exponentialRampToValueAtTime(sus,now+attk+dcy);
+    gain.gain.setValueAtTime(sus,now+d-0.08);
+    gain.gain.exponentialRampToValueAtTime(0.0001,now+d+0.55);
+    osc.start(now); osc.stop(now+d+0.65);
+  }
+  // Soft damper noise (tuş serbest bırakma hissi)
+  const bufLen=ctx.sampleRate*0.03;
+  const buf=ctx.createBuffer(1,bufLen,ctx.sampleRate);
+  const bd=buf.getChannelData(0);
+  for(let i=0;i<bufLen;i++) bd[i]=(Math.random()*2-1)*0.015;
+  const noise=ctx.createBufferSource();
+  const ng=ctx.createGain();
+  noise.buffer=buf; noise.connect(ng); ng.connect(master);
+  ng.gain.setValueAtTime(0,now); ng.gain.linearRampToValueAtTime(0.04,now+0.002);
+  ng.gain.exponentialRampToValueAtTime(0.0001,now+0.03);
+  noise.start(now);
+  // Master level
+  master.gain.setValueAtTime(0.55,now);
+  master.gain.exponentialRampToValueAtTime(0.0001,now+d+0.75);
+}
+
+async function playNote(m,d){ piano(m,d||ST.noteDur); await sleep((d||ST.noteDur)*1000+100); }
+async function playChord(ms,d){ ms.forEach(m=>piano(m,d||ST.noteDur)); await sleep((d||ST.noteDur)*1000+100); }
+async function playMelody(notes,tempo){
+  const nd=tempo||0.75;
+  for(let i=0;i<notes.length;i++){
+    piano(notes[i],nd*1.1);
+    await sleep(nd*1000*0.85);
+  }
+  await sleep(300);
+}
+
+// ════════════════════════════════════════════════════════
+//  WAVEFORM ANİMASYON
+// ════════════════════════════════════════════════════════
+function animWave(id,active=true,color='#d4a843'){
+  const cv=document.getElementById(id); if(!cv) return;
+  cv.width=cv.offsetWidth||300; cv.height=60;
+  const ctx=cv.getContext('2d');
+  if(!ST.wvPhase[id]) ST.wvPhase[id]=0;
+  function draw(){
+    if(!document.getElementById(id)) return;
+    cv.width=cv.offsetWidth||300;
+    ctx.clearRect(0,0,cv.width,cv.height);
+    ctx.strokeStyle=color; ctx.lineWidth=1.8;
+    ctx.shadowColor=color; ctx.shadowBlur=active?5:0;
+    ctx.beginPath();
+    const ph=ST.wvPhase[id], amp=active?22:3;
+    for(let x=0;x<=cv.width;x++){
+      const t=x/cv.width*Math.PI*4+ph;
+      const y=cv.height/2+amp*Math.sin(t)+(active?5*Math.sin(t*2.4+1)+2*Math.sin(t*3.8+2):0);
+      x===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
+    }
+    ctx.stroke();
+    ST.wvPhase[id]+=active?0.07:0.015;
+    ST.animFrames[id]=requestAnimationFrame(draw);
+  }
+  if(ST.animFrames[id]) cancelAnimationFrame(ST.animFrames[id]);
+  draw();
+}
+function stopWaves(){ Object.keys(ST.animFrames).forEach(k=>{cancelAnimationFrame(ST.animFrames[k]);delete ST.animFrames[k];}); }
+
+// ════════════════════════════════════════════════════════
+//  ROUTING
+// ════════════════════════════════════════════════════════
+function goTo(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id)?.classList.add('active');
+  window.scrollTo(0,0); stopWaves();
+  if(ST.metIv){clearInterval(ST.metIv);ST.metIv=null;}
+  const h={single:initSin,double:initDbl,triple:initTri,four:initFour,
+            melody:initMel,rhythm:initRhy,exam:initExam,profile:initProfile,
+            diff:initDiff,upload:initUpload};
+  if(h[id]) h[id]();
+}
+
+// ════════════════════════════════════════════════════════
+//  ACCURACY RING
+// ════════════════════════════════════════════════════════
+function setAcc(pct){
+  const c=326.7-326.7*pct/100;
+  document.getElementById('accRing').style.strokeDashoffset=c;
+  document.getElementById('accPct').textContent=Math.round(pct)+'%';
+  const g=pct>=90?['Mükemmel 🏆','#3db87a','rgba(61,184,122,.12)','rgba(61,184,122,.28)']
+          :pct>=75?['İyi 👍','#d4a843','rgba(212,168,67,.12)','rgba(212,168,67,.28)']
+          :pct>=50?['Geliştirilmeli 📈','#e07a3a','rgba(224,122,58,.12)','rgba(224,122,58,.28)']
+                  :['Tekrar Dene 🔄','#e04848','rgba(224,72,72,.12)','rgba(224,72,72,.28)'];
+  const el=document.getElementById('accGr');
+  el.textContent=g[0]; el.style.color=g[1]; el.style.background=g[2]; el.style.border=`1px solid ${g[3]}`;
+}
+
+function toast(msg,ok){
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.className=`toast show ${ok?'ok':'err'}`;
+  clearTimeout(t._t); t._t=setTimeout(()=>t.classList.remove('show'),3000);
+}
+
+function updHomeScores(){
+  const f=v=>v!==null?`${v}%`:'--';
+  ['single','double','triple','four','melody','rhythm'].forEach(k=>{
+    const el=document.getElementById('sc'+k.charAt(0).toUpperCase()+k.slice(1));
+    if(el) el.textContent=f(ST.scores[k]);
+  });
+  const all=Object.values(ST.scores).filter(v=>v!==null);
+  if(all.length){
+    const avg=Math.round(all.reduce((a,b)=>a+b,0)/all.length);
+    const wa=document.getElementById('wAcc'), wb=document.getElementById('wBar');
+    if(wa) wa.textContent=avg+'%'; if(wb) wb.style.width=avg+'%';
+  }
+}
+
+// ════════════════════════════════════════════════════════
+//  TEK SES
+// ════════════════════════════════════════════════════════
+const SIN={q:0,t:null,rec:false,iv:null,scores:[]};
+function initSin(){
+  SIN.q=0;SIN.scores=[];SIN.t=null;
+  setAcc(0);
+  document.getElementById('sinQ').textContent='1/5';
+  document.getElementById('sinDisplay').innerHTML='<div class="nc-ph">🎵</div><div style="color:var(--td);font-size:12px;text-align:center">▶ Çal butonuna basın</div>';
+  document.getElementById('sinDet').textContent='—';document.getElementById('sinHz').textContent='— Hz';
+  document.getElementById('sinNeedle').style.left='50%';
+  animWave('wv1',false);
+}
+async function sinPlay(){
+  const m=60+Math.floor(Math.random()*13);SIN.t=m;
+  const nm=noteName(m),oc=noteOct(m),hz=midiHz(m).toFixed(1);
+  document.getElementById('sinDisplay').innerHTML=
+    `<div class="nc-name">${nm}</div><div class="nc-sub">${NOTENAMES[m%12]}${oc}</div><div class="nc-sub">${hz} Hz</div>`;
+  setAcc(0); await playNote(m);
+}
+function sinToggle(){ if(!SIN.t){toast('Önce notayı çalın!',false);return;} SIN.rec?sinStop():sinStart(); }
+function sinStart(){
+  SIN.rec=true;
+  const mb=document.getElementById('sinMic'); mb.textContent='⏹ Durdur'; mb.classList.add('rec');
+  animWave('wv1',true);
+  let t=0;
+  SIN.iv=setInterval(()=>{
+    t+=0.1;
+    const acc=60+Math.random()*38;
+    const det=midiHz(SIN.t)*Math.pow(2,((100-acc)*0.35*(Math.random()<.5?1:-1))/1200);
+    const mid=hzMidi(det);
+    const dev=(det-midiHz(SIN.t))/midiHz(SIN.t);
+    const pa=Math.max(0,100-Math.abs(1200*Math.log2(det/midiHz(SIN.t)))*1.8);
+    document.getElementById('sinNeedle').style.left=Math.max(5,Math.min(95,50+dev*550))+'%';
+    document.getElementById('sinDet').textContent=noteName(mid);
+    document.getElementById('sinHz').textContent=det.toFixed(1)+' Hz';
+    setAcc(pa);
+    if(t>3.5) sinStop();
+  },100);
+}
+function sinStop(){
+  clearInterval(SIN.iv);SIN.rec=false;
+  const mb=document.getElementById('sinMic'); mb.textContent='🎤 Söyle'; mb.classList.remove('rec');
+  animWave('wv1',false);
+  const p=parseInt(document.getElementById('accPct').textContent);
+  SIN.scores.push(p);
+  ST.scores.single=Math.round(SIN.scores.reduce((a,b)=>a+b,0)/SIN.scores.length);
+  updHomeScores();
+}
+function sinNext(){
+  SIN.q=(SIN.q+1)%5;SIN.t=null;
+  document.getElementById('sinQ').textContent=`${SIN.q+1}/5`;
+  document.getElementById('sinDisplay').innerHTML='<div class="nc-ph">🎵</div><div style="color:var(--td);font-size:12px;text-align:center">▶ Çal butonuna basın</div>';
+  document.getElementById('sinDet').textContent='—';document.getElementById('sinHz').textContent='— Hz';
+  document.getElementById('sinNeedle').style.left='50%';setAcc(0);animWave('wv1',false);
+}
+
+// ════════════════════════════════════════════════════════
+//  ÇİFT SES — AYNI ANDA BLOK AKOR OLARAK ÇALAR
+// ════════════════════════════════════════════════════════
+const DBL={q:0,tgt:null,sel:null};
+function initDbl(){
+  DBL.q=0;DBL.sel=null;DBL.tgt=null;
+  const g=document.getElementById('dblChoices');g.innerHTML='';
+  INTERVALS.forEach((name,i)=>{
+    const b=document.createElement('div');b.className='cbtn';
+    b.textContent=`${ITVL_S[i]} — ${name}`;
+    b.onclick=()=>{document.querySelectorAll('#dblChoices .cbtn').forEach(x=>x.classList.remove('sel'));b.classList.add('sel');DBL.sel=i;};
+    g.appendChild(b);
+  });
+  document.getElementById('dblNotes').innerHTML=`
+    <div class="note-card"><div class="nc-ph">🎵</div><div class="nc-sub">1. Nota</div></div>
+    <div style="display:flex;align-items:center;padding:0 4px;flex-direction:column;gap:3px">
+      <div style="font-size:20px;color:var(--td)">+</div>
+      <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--td);text-align:center" id="dblHint">?</div>
+    </div>
+    <div class="note-card"><div class="nc-ph">🎵</div><div class="nc-sub">2. Nota</div></div>`;
+  animWave('wv2',false);
+}
+async function dblPlay(){
+  const root=60+Math.floor(Math.random()*9);
+  const semi=Math.floor(Math.random()*12)+1;
+  DBL.tgt=semi-1;
+  const m1=root,m2=root+semi;
+  // İki nota DEĞİŞMEZ AYNI ANDA çalınır — konservatuvar standardı
+  document.getElementById('dblNotes').innerHTML=`
+    <div class="note-card lit"><div class="nc-name">${noteName(m1)}</div><div class="nc-sub">${NOTENAMES[m1%12]}${noteOct(m1)}</div></div>
+    <div style="display:flex;align-items:center;padding:0 4px;flex-direction:column;gap:3px">
+      <div style="font-size:20px;color:var(--gold)">+</div>
+      <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--td);text-align:center" id="dblHint">?</div>
+    </div>
+    <div class="note-card lit"><div class="nc-name">${noteName(m2)}</div><div class="nc-sub">${NOTENAMES[m2%12]}${noteOct(m2)}</div></div>`;
+  await playChord([m1,m2], ST.noteDur*1.2);
+  animWave('wv2',true,'#4f8fe0'); setTimeout(()=>animWave('wv2',false),2500);
+}
+function dblCheck(){
+  if(DBL.sel===null){toast('Bir aralık seçin!',false);return;}
+  const ok=DBL.sel===DBL.tgt;
+  document.querySelectorAll('#dblChoices .cbtn').forEach((b,i)=>{
+    if(i===DBL.tgt) b.classList.add('correct');
+    else if(i===DBL.sel&&!ok) b.classList.add('wrong');
+  });
+  toast(ok?`✓ Doğru! ${INTERVALS[DBL.tgt]}`:`✗ Yanlış. Doğru: ${INTERVALS[DBL.tgt]}`,ok);
+  ST.scores.double=ok?100:0;updHomeScores();
+  DBL.q++;document.getElementById('dblQ').textContent=`${DBL.q+1}/4`;
+  setTimeout(()=>initDbl(),2600);
+}
+
+// ════════════════════════════════════════════════════════
+//  ÜÇ SES — BLOK AKOR (AYNI ANDA)
+// ════════════════════════════════════════════════════════
+const TRI={tC:null,tI:0,sC:null,sI:0};
+function initTri(){
+  TRI.sC=null;TRI.sI=0;
+  const cg=document.getElementById('triChoices');cg.innerHTML='';
+  CHORD3.forEach((n,i)=>{
+    const b=document.createElement('div');b.className='cbtn';b.textContent=n;
+    b.onclick=()=>{document.querySelectorAll('#triChoices .cbtn').forEach(x=>x.classList.remove('sel'));b.classList.add('sel');TRI.sC=i;};
+    cg.appendChild(b);
+  });
+  const ig=document.getElementById('triInv');ig.innerHTML='';
+  INV3.forEach((n,i)=>{
+    const b=document.createElement('div');b.className='cbtn';b.style.flex='1';b.textContent=n;
+    b.onclick=()=>{document.querySelectorAll('#triInv .cbtn').forEach(x=>x.classList.remove('sel'));b.classList.add('sel');TRI.sI=i;};
+    ig.appendChild(b);
+  });
+  const row=document.getElementById('triNotes');
+  row.innerHTML='';
+  for(let i=0;i<3;i++){const d=document.createElement('div');d.className='note-card';d.id=`triN${i}`;d.innerHTML='<div class="nc-ph" style="font-size:24px">♩</div>';row.appendChild(d);}
+  animWave('wv3',false);
+}
+async function triPlay(){
+  const root=60+Math.floor(Math.random()*9);
+  const ct=Math.floor(Math.random()*4);TRI.tC=ct;
+  TRI.tI=Math.floor(Math.random()*3);
+  const ivs=[[0,4,7],[0,3,7],[0,3,6],[0,4,8]][ct];
+  let ms=ivs.map(i=>root+i);
+  if(TRI.tI===1) ms=[ms[1],ms[2],ms[0]+12];
+  if(TRI.tI===2) ms=[ms[2],ms[0]+12,ms[1]+12];
+  ms.forEach((m,i)=>{
+    document.getElementById(`triN${i}`).innerHTML=
+      `<div class="nc-name" style="font-size:clamp(22px,4vw,36px)">${noteName(m)}</div><div class="nc-sub">${NOTENAMES[m%12]}${noteOct(m)}</div>`;
+  });
+  // BLOK AKOR — hepsi aynı anda
+  await playChord(ms, ST.noteDur*1.3);
+  animWave('wv3',true,'#9a5ae0'); setTimeout(()=>animWave('wv3',false),2800);
+}
+function triCheck(){
+  if(TRI.sC===null){toast('Akor türü seçin!',false);return;}
+  const cOk=TRI.sC===TRI.tC,iOk=TRI.sI===TRI.tI,ok=cOk&&iOk;
+  toast(ok?`✓ ${CHORD3[TRI.tC]} / ${INV3[TRI.tI]}`:`✗ Doğru: ${CHORD3[TRI.tC]} / ${INV3[TRI.tI]}`,ok);
+  ST.scores.triple=ok?100:cOk||iOk?50:0;updHomeScores();
+  document.getElementById('triQ').textContent=`${parseInt(document.getElementById('triQ').textContent)+1}/4`;
+  setTimeout(()=>initTri(),2600);
+}
+
+// ════════════════════════════════════════════════════════
+//  DÖRT SES — BLOK AKOR (AYNI ANDA)
+// ════════════════════════════════════════════════════════
+const FOUR={tC:null,tI:0,sC:null,sI:0};
+function initFour(){
+  FOUR.sC=null;FOUR.sI=0;
+  const cg=document.getElementById('fourChoices');cg.innerHTML='';
+  CHORD7_TYPES.forEach((n,i)=>{
+    const b=document.createElement('div');b.className='cbtn';b.textContent=n;
+    b.onclick=()=>{document.querySelectorAll('#fourChoices .cbtn').forEach(x=>x.classList.remove('sel'));b.classList.add('sel');FOUR.sC=i;
+      document.getElementById('fourInfo').textContent=CHORD7_INFO[i];};
+    cg.appendChild(b);
+  });
+  const ig=document.getElementById('fourInv');ig.innerHTML='';
+  INV7.forEach((n,i)=>{
+    const b=document.createElement('div');b.className='cbtn';b.style.flex='1';b.textContent=n;
+    b.onclick=()=>{document.querySelectorAll('#fourInv .cbtn').forEach(x=>x.classList.remove('sel'));b.classList.add('sel');FOUR.sI=i;};
+    ig.appendChild(b);
+  });
+  const row=document.getElementById('fourNotes');row.innerHTML='';
+  for(let i=0;i<4;i++){const d=document.createElement('div');d.className='note-card';d.id=`fourN${i}`;d.innerHTML='<div class="nc-ph" style="font-size:20px">♩</div>';row.appendChild(d);}
+  document.getElementById('fourInfo').textContent='Akorı dinleyin ve türünü belirleyin.';
+  animWave('wv6',false);
+}
+async function fourPlay(){
+  const root=58+Math.floor(Math.random()*8);
+  const ct=Math.floor(Math.random()*5);FOUR.tC=ct;
+  FOUR.tI=Math.floor(Math.random()*4);
+  let ms=CHORD7_ITVL[ct].map(i=>root+i);
+  for(let inv=0;inv<FOUR.tI;inv++) ms=[...ms.slice(1),ms[0]+12];
+  ms.forEach((m,i)=>{
+    document.getElementById(`fourN${i}`).innerHTML=
+      `<div class="nc-name" style="font-size:clamp(18px,3.5vw,30px)">${noteName(m)}</div><div class="nc-sub">${NOTENAMES[m%12]}${noteOct(m)}</div>`;
+  });
+  // BLOK AKOR — 4 ses aynı anda
+  await playChord(ms, ST.noteDur*1.4);
+  animWave('wv6',true,'#e07a9a'); setTimeout(()=>animWave('wv6',false),3000);
+}
+function fourCheck(){
+  if(FOUR.sC===null){toast('Akor türü seçin!',false);return;}
+  const cOk=FOUR.sC===FOUR.tC,iOk=FOUR.sI===FOUR.tI,ok=cOk&&iOk;
+  toast(ok?`✓ ${CHORD7_TYPES[FOUR.tC]} / ${INV7[FOUR.tI]}`:`✗ Doğru: ${CHORD7_TYPES[FOUR.tC]} / ${INV7[FOUR.tI]}`,ok);
+  ST.scores.four=ok?100:cOk||iOk?55:0;updHomeScores();
+  document.getElementById('fourQ').textContent=`${parseInt(document.getElementById('fourQ').textContent.split('/')[0])+1}/4`;
+  setTimeout(()=>initFour(),2600);
+}
+
+// ════════════════════════════════════════════════════════
+//  EZGİ — 2/4 ve 4/4 melodik yapılar
+//  Her ezgi: name, metre (2/4 veya 4/4), notes[]
+//  Gerçek tonal/modal ezgiler — atlamalar, geri dönüşler
+// ════════════════════════════════════════════════════════
+const MELODIES=[
+  // ── DO MAJÖR gamı ve türevleri ──
+  {name:'Do Majör Gam (Çıkış)',metre:'4/4',notes:[60,62,64,65,67,69,71,72]},
+  {name:'Do Majör Gam (İniş)',metre:'4/4',notes:[72,71,69,67,65,64,62,60]},
+  {name:'Do Majör Arpej',metre:'4/4',notes:[60,64,67,72,67,64,60,55]},
+  {name:'Do Majör — Tetra Kord',metre:'2/4',notes:[60,62,64,65]},
+  {name:'Do Majör — Atlama',metre:'4/4',notes:[60,64,60,65,60,67,65,64]},
+  {name:'Do Majör — Soru-Cevap',metre:'4/4',notes:[60,62,64,65,64,62,60,60]},
+
+  // ── SOL MAJÖR ──
+  {name:'Sol Majör Gam (Çıkış)',metre:'4/4',notes:[67,69,71,72,74,76,78,79]},
+  {name:'Sol Majör Gam (İniş)',metre:'4/4',notes:[79,78,76,74,72,71,69,67]},
+  {name:'Sol Majör Arpej',metre:'4/4',notes:[67,71,74,79,74,71,67,62]},
+  {name:'Sol Majör — Kısa Motif',metre:'2/4',notes:[67,69,71,72]},
+  {name:'Sol Majör — Melodik',metre:'4/4',notes:[67,69,71,72,71,69,67,65]},
+
+  // ── FA MAJÖR ──
+  {name:'Fa Majör Gam (Çıkış)',metre:'4/4',notes:[65,67,69,70,72,74,76,77]},
+  {name:'Fa Majör Arpej',metre:'4/4',notes:[65,69,72,77,72,69,65,60]},
+  {name:'Fa Majör — Melodik',metre:'4/4',notes:[65,67,69,70,69,67,65,64]},
+
+  // ── RE MAJÖR ──
+  {name:'Re Majör Gam',metre:'4/4',notes:[62,64,66,67,69,71,73,74]},
+  {name:'Re Majör Arpej',metre:'4/4',notes:[62,66,69,74,69,66,62,57]},
+
+  // ── LA MAJÖR ──
+  {name:'La Majör Gam',metre:'4/4',notes:[69,71,73,74,76,78,80,81]},
+  {name:'La Majör Arpej',metre:'2/4',notes:[69,73,76,81]},
+
+  // ── LA MİNÖR (doğal) ──
+  {name:'La Minör Gam (Çıkış)',metre:'4/4',notes:[69,71,72,74,76,77,79,81]},
+  {name:'La Minör Gam (İniş)',metre:'4/4',notes:[81,79,77,76,74,72,71,69]},
+  {name:'La Minör Arpej',metre:'4/4',notes:[69,72,76,81,76,72,69,64]},
+  {name:'La Minör — Hüzün',metre:'4/4',notes:[69,71,72,74,72,71,69,67]},
+  {name:'La Minör — Soru Cevap',metre:'4/4',notes:[72,71,69,67,69,71,72,72]},
+
+  // ── RE MİNÖR ──
+  {name:'Re Minör Gam',metre:'4/4',notes:[62,64,65,67,69,70,72,74]},
+  {name:'Re Minör Arpej',metre:'4/4',notes:[62,65,69,74,69,65,62,57]},
+  {name:'Re Minör — Melodik',metre:'4/4',notes:[62,64,65,67,65,64,62,60]},
+
+  // ── Mİ MİNÖR ──
+  {name:'Mi Minör Gam',metre:'4/4',notes:[64,66,67,69,71,72,74,76]},
+  {name:'Mi Minör Arpej',metre:'4/4',notes:[64,67,71,76,71,67,64,59]},
+  {name:'Mi Minör — Melodik',metre:'4/4',notes:[64,66,67,69,67,66,64,62]},
+
+  // ── TÜRK MAKAMLARI ──
+  {name:'Rast Makamı — Gam',metre:'4/4',notes:[67,69,70,72,74,75,77,79]},
+  {name:'Rast — Seyir',metre:'4/4',notes:[67,69,70,72,70,69,67,65]},
+  {name:'Uşşak Makamı — Gam',metre:'4/4',notes:[69,70,72,74,76,77,79,81]},
+  {name:'Uşşak — Seyir',metre:'4/4',notes:[69,70,72,74,72,70,69,67]},
+  {name:'Hicaz Makamı — Gam',metre:'4/4',notes:[62,63,66,67,69,70,72,74]},
+  {name:'Hicaz — Seyir',metre:'4/4',notes:[67,63,65,67,66,63,62,60]},
+  {name:'Hicazkâr — Motif',metre:'4/4',notes:[67,66,64,62,63,65,67,69]},
+  {name:'Kürdi — Gam',metre:'4/4',notes:[62,63,65,67,69,70,72,74]},
+  {name:'Segâh — Motif',metre:'4/4',notes:[64,65,68,69,71,72,69,67]},
+  {name:'Nihavend — Gam',metre:'4/4',notes:[67,69,70,72,74,75,77,79]},
+  {name:'Nihavend — Seyir',metre:'4/4',notes:[72,70,69,67,65,64,62,60]},
+  {name:'Saba Makamı — Motif',metre:'4/4',notes:[62,63,65,68,67,65,63,62]},
+  {name:'Buselik — Gam',metre:'4/4',notes:[69,71,72,74,76,77,79,81]},
+
+  // ── PENTATONİK ──
+  {name:'Majör Pentatonik',metre:'4/4',notes:[60,62,64,67,69,67,64,60]},
+  {name:'Minör Pentatonik',metre:'4/4',notes:[60,63,65,67,70,67,65,60]},
+  {name:'Pentatonik — Doğu',metre:'4/4',notes:[60,62,65,67,70,67,65,60]},
+
+  // ── KISA MOTİFLER (2/4 — BİLSEM seviyesi) ──
+  {name:'Yukarı Üçlü',metre:'2/4',notes:[60,62,64,65]},
+  {name:'Aşağı Üçlü',metre:'2/4',notes:[65,64,62,60]},
+  {name:'Do-Mi-Sol',metre:'2/4',notes:[60,64,67,72]},
+  {name:'Sol-Mi-Do',metre:'2/4',notes:[72,67,64,60]},
+  {name:'Beşli Sıçrama Yukarı',metre:'2/4',notes:[60,67,65,64]},
+  {name:'Beşli Sıçrama Aşağı',metre:'2/4',notes:[72,65,67,69]},
+  {name:'Sekizli Atlama',metre:'2/4',notes:[60,72,71,69]},
+  {name:'La-Sol-Fa-Mi',metre:'2/4',notes:[69,67,65,64]},
+  {name:'Mi-Fa-Sol-La',metre:'2/4',notes:[64,65,67,69]},
+  {name:'Do-Si-La-Sol',metre:'2/4',notes:[72,71,69,67]},
+];
+
+
+const MEL={q:0,mel:null,rec:false,idx:0,iv:null};
+function initMel(){
+  MEL.q=0;MEL.mel=null;MEL.idx=0;
+  document.getElementById('melName').textContent='—';
+  document.getElementById('melMetre').innerHTML='—';
+  document.getElementById('melNotes').innerHTML='<div style="color:var(--td);font-size:12px;padding:8px">▶ Ezgiyi çalın</div>';
+  document.getElementById('melResults').innerHTML='<div style="color:var(--td);font-size:11px;text-align:center;padding:8px">Önce ezgiyi çalın, sonra söyleyin</div>';
+  document.getElementById('melAcc').textContent='—';
+  animWave('wv4',false);
+}
+
+function makeMetre(sig){
+  const [top,bot]=sig.split('/');
+  return `<span class="time-sig"><span>${top}</span><span style="border-top:1px solid rgba(212,168,67,.4);padding-top:1px">${bot}</span></span><span style="margin-left:5px;font-size:11px;color:var(--tm)">ölçü</span>`;
+}
+
+async function melPlay(){
+  MEL.mel=MELODIES[Math.floor(Math.random()*MELODIES.length)];
+  document.getElementById('melName').textContent=MEL.mel.name;
+  document.getElementById('melMetre').innerHTML=makeMetre(MEL.mel.metre);
+  const ns=MEL.mel.notes;
+  document.getElementById('melNotes').innerHTML=ns.map((m,i)=>
+    `<div class="mn" id="mn${i}">${noteName(m)}<div class="mn-i">${i+1}</div></div>`).join('');
+  document.getElementById('melResults').innerHTML='<div style="color:var(--td);font-size:11px;text-align:center;padding:8px">🎵 Dinleniyor…</div>';
+  animWave('wv4',true,'#3db87a');
+  for(let i=0;i<ns.length;i++){
+    document.getElementById(`mn${i}`)?.classList.add('on');
+    piano(ns[i],0.78);
+    await sleep(700);
+    document.getElementById(`mn${i}`)?.classList.remove('on');
+  }
+  await sleep(350); animWave('wv4',false);
+}
+
+function melRecord(){
+  if(!MEL.mel){toast('Önce ezgiyi çalın!',false);return;}
+  if(MEL.rec) return;
+  MEL.rec=true;MEL.idx=0;
+  const mb=document.getElementById('melMic'); mb.textContent='⏺ Kaydediliyor…'; mb.classList.add('rec');
+  animWave('wv4',true,'#3db87a');
+  const res=[];
+  document.getElementById('melResults').innerHTML='';
+  MEL.iv=setInterval(()=>{
+    const i=MEL.idx;
+    if(i>=MEL.mel.notes.length){
+      clearInterval(MEL.iv);MEL.rec=false;
+      const mb=document.getElementById('melMic');mb.textContent='🎤 Söyle';mb.classList.remove('rec');
+      animWave('wv4',false);
+      const avg=res.reduce((a,b)=>a+b,0)/res.length;
+      document.getElementById('melAcc').textContent=Math.round(avg)+'%';
+      ST.scores.melody=Math.round(avg);updHomeScores();
+      toast(avg>=75?`✓ Ezgi %${Math.round(avg)} uyum`:`↑ %${Math.round(avg)} — daha fazla pratik`,avg>=75);
+      return;
+    }
+    const acc=64+Math.random()*34;
+    res.push(acc);
+    document.getElementById(`mn${i}`)?.classList.add(acc>=72?'done':'bad');
+    const row=document.createElement('div');
+    row.style.cssText='display:flex;justify-content:space-between;align-items:center;padding:6px 10px;background:var(--s2);border-radius:7px;border:1px solid var(--brd);';
+    const col=acc>=72?'var(--ok)':'var(--err)';
+    row.innerHTML=`<span style="font-size:11px;color:var(--tm)">${i+1}. ${noteName(MEL.mel.notes[i])}</span>
+      <span style="display:flex;align-items:center;gap:5px">
+        <span style="font-size:10px;color:${col}">${acc>=72?'✓':'✗'}</span>
+        <span style="font-family:'DM Mono',monospace;font-size:11px;color:${col}">${Math.round(acc)}%</span>
+      </span>`;
+    document.getElementById('melResults').appendChild(row);
+    MEL.idx++;
+  },780);
+}
+function melNext(){initMel();MEL.q++;document.getElementById('melQ').textContent=`${MEL.q+1}/3`;}
+
+// ════════════════════════════════════════════════════════
+//  RİTİM — 2/4 ve 4/4 — sekizlik + dörtlük + onaltılık karışımı
+//  Her kalıp: metre, BPM, beats[] dizisi
+//  beat: {sym, dur, sub} — sym=görsel, dur=süre(beat), sub=alt bölümler
+// ════════════════════════════════════════════════════════
+
+// Not değerleri: q=dörtlük(1), e=sekizlik(.5), s=onaltılık(.25), h=yarım(2)
+// Her kalıp HER SEFERINDE farklı bir kalıptan rastgele gelir
+// ════════════════════════════════════════════════════════
+//  RİTİM KALIPLARi — 2/4 ve 4/4
+//  Her vuruş: s=sembol, d=süre(dörtlük=1 birim)
+//  Toplam vuruş değerleri ölçüye tam uyar:
+//   4/4 = toplam 4 dörtlük = 4.0
+//   2/4 = toplam 2 dörtlük = 2.0
+// ════════════════════════════════════════════════════════
+const RHYTHM_PATTERNS=[
+  // ════════════════════════════
+  //  2/4 KALIPLARI
+  // ════════════════════════════
+  // Temel — Başlangıç
+  {metre:'2/4',bpm:80,label:'♩ ♩  (2 dörtlük)',
+   beats:[{s:'♩',d:1},{s:'♩',d:1}]},
+  {metre:'2/4',bpm:84,label:'♪♪ ♪♪  (4 sekizlik)',
+   beats:[{s:'♪',d:.5},{s:'♪',d:.5},{s:'♪',d:.5},{s:'♪',d:.5}]},
+  {metre:'2/4',bpm:80,label:'♩ ♪♪  (dörtlük + 2 sekizlik)',
+   beats:[{s:'♩',d:1},{s:'♪',d:.5},{s:'♪',d:.5}]},
+  {metre:'2/4',bpm:80,label:'♪♪ ♩  (2 sekizlik + dörtlük)',
+   beats:[{s:'♪',d:.5},{s:'♪',d:.5},{s:'♩',d:1}]},
+  {metre:'2/4',bpm:76,label:'♩· ♪  (noktalı dörtlük + sekizlik)',
+   beats:[{s:'♩·',d:1.5},{s:'♪',d:.5}]},
+  {metre:'2/4',bpm:80,label:'♪ ♩· (sekizlik + noktalı dörtlük)',
+   beats:[{s:'♪',d:.5},{s:'♩·',d:1.5}]},
+  // Orta
+  {metre:'2/4',bpm:84,label:'♪♪ ♩  ♩  (senkop benzeri)',
+   beats:[{s:'♪',d:.5},{s:'♪',d:.5},{s:'♩',d:1}]},
+  {metre:'2/4',bpm:88,label:'♩ ♪ ♪  (dörtlük + sekizlik + sekizlik)',
+   beats:[{s:'♩',d:1},{s:'♪',d:.5},{s:'♪',d:.5}]},
+  {metre:'2/4',bpm:84,label:'♪♪♪♪  gruplu sekizlik',
+   beats:[{s:'♪',d:.5},{s:'♪',d:.5},{s:'♪',d:.5},{s:'♪',d:.5}]},
+  {metre:'2/4',bpm:76,label:'𝅗  (yarım nota)',
+   beats:[{s:'𝅗',d:2}]},
+  {metre:'2/4',bpm:88,label:'♩· ♪ (noktalı — BİLSEM)',
+   beats:[{s:'♩·',d:1.5},{s:'♪',d:.5}]},
+  // İleri
+  {metre:'2/4',bpm:92,label:'♪♪ ♪· ♬ (karma)',
+   beats:[{s:'♪',d:.5},{s:'♪',d:.5},{s:'♩·',d:1.5}]},
+
+  // ════════════════════════════
+  //  4/4 KALIPLARI
+  // ════════════════════════════
+  // Temel — Başlangıç
+  {metre:'4/4',bpm:72,label:'♩ ♩ ♩ ♩  (4 dörtlük)',
+   beats:[{s:'♩',d:1},{s:'♩',d:1},{s:'♩',d:1},{s:'♩',d:1}]},
+  {metre:'4/4',bpm:76,label:'♪♪♪♪ ♪♪♪♪  (8 sekizlik)',
+   beats:[{s:'♪',d:.5},{s:'♪',d:.5},{s:'♪',d:.5},{s:'♪',d:.5},{s:'♪',d:.5},{s:'♪',d:.5},{s:'♪',d:.5},{s:'♪',d:.5}]},
+  {metre:'4/4',bpm:72,label:'𝅗 𝅗  (2 yarım)',
+   beats:[{s:'𝅗',d:2},{s:'𝅗',d:2}]},
+  {metre:'4/4',bpm:70,label:'𝅗 ♩ ♩  (yarım + 2 dörtlük)',
+   beats:[{s:'𝅗',d:2},{s:'♩',d:1},{s:'♩',d:1}]},
+  {metre:'4/4',bpm:72,label:'♩ ♩ 𝅗  (2 dörtlük + yarım)',
+   beats:[{s:'♩',d:1},{s:'♩',d:1},{s:'𝅗',d:2}]},
+  // Orta — Karma
+  {metre:'4/4',bpm:80,label:'♩ ♪♪ ♩ ♩  (dörtlük+sekizlik+dörtlük)',
+   beats:[{s:'♩',d:1},{s:'♪',d:.5},{s:'♪',d:.5},{s:'♩',d:1},{s:'♩',d:1}]},
+  {metre:'4/4',bpm:80,label:'♪♪ ♩ ♪♪ ♩  (simetrik)',
+   beats:[{s:'♪',d:.5},{s:'♪',d:.5},{s:'♩',d:1},{s:'♪',d:.5},{s:'♪',d:.5},{s:'♩',d:1}]},
+  {metre:'4/4',bpm:80,label:'♩ ♩ ♪♪ ♩  (karma III)',
+   beats:[{s:'♩',d:1},{s:'♩',d:1},{s:'♪',d:.5},{s:'♪',d:.5},{s:'♩',d:1}]},
+  {metre:'4/4',bpm:76,label:'♪♪♪♪ ♩ ♩  (sekizlik grubu)',
+   beats:[{s:'♪',d:.5},{s:'♪',d:.5},{s:'♪',d:.5},{s:'♪',d:.5},{s:'♩',d:1},{s:'♩',d:1}]},
+  {metre:'4/4',bpm:76,label:'♩ ♩ ♪♪♪♪  (ters sekizlik)',
+   beats:[{s:'♩',d:1},{s:'♩',d:1},{s:'♪',d:.5},{s:'♪',d:.5},{s:'♪',d:.5},{s:'♪',d:.5}]},
+  // Noktalı
+  {metre:'4/4',bpm:72,label:'♩· ♪ ♩· ♪  (noktalı çift)',
+   beats:[{s:'♩·',d:1.5},{s:'♪',d:.5},{s:'♩·',d:1.5},{s:'♪',d:.5}]},
+  {metre:'4/4',bpm:72,label:'♩· ♪ ♩ ♩  (noktalı + dörtlükler)',
+   beats:[{s:'♩·',d:1.5},{s:'♪',d:.5},{s:'♩',d:1},{s:'♩',d:1}]},
+  {metre:'4/4',bpm:76,label:'♩ ♪♪ ♩· ♪  (karma noktalı)',
+   beats:[{s:'♩',d:1},{s:'♪',d:.5},{s:'♪',d:.5},{s:'♩·',d:1.5},{s:'♪',d:.5}]},
+  // İleri — Konservatuvar
+  {metre:'4/4',bpm:84,label:'♩ ♪♪ ♪♪ ♩  (iç sekizlikler)',
+   beats:[{s:'♩',d:1},{s:'♪',d:.5},{s:'♪',d:.5},{s:'♪',d:.5},{s:'♪',d:.5},{s:'♩',d:1}]},
+  {metre:'4/4',bpm:80,label:'♪♪ ♩ ♩ ♪♪  (dış sekizlikler)',
+   beats:[{s:'♪',d:.5},{s:'♪',d:.5},{s:'♩',d:1},{s:'♩',d:1},{s:'♪',d:.5},{s:'♪',d:.5}]},
+  {metre:'4/4',bpm:76,label:'𝅗 ♪♪ ♩  (yarım + karma)',
+   beats:[{s:'𝅗',d:2},{s:'♪',d:.5},{s:'♪',d:.5},{s:'♩',d:1}]},
+];
+
+
+// ════════════════════════════════════════════════════════
+//  RİTİM — Dinle ve Seç sistemi
+//  Doğru ritim + 2 yanlış şık → A/B/C → onayla
+// ════════════════════════════════════════════════════════
+const RHY={
+  correct:null,   // doğru kalıp index (0,1,2)
+  opts:[],        // 3 kalıp [{metre,bpm,label,beats}]
+  sel:null,       // kullanıcı seçimi
+  total:0, ok:0,  // puan
+  qNum:0, lastIdx:-1,
+  answered:false
+};
+
+function initRhy(){
+  RHY.total=0; RHY.ok=0; RHY.qNum=0; RHY.lastIdx=-1;
+  document.getElementById('rhyScore').textContent='0 / 0';
+  newRhyQuestion();
+}
+
+function newRhyQuestion(){
+  RHY.sel=null; RHY.answered=false; RHY.qNum++;
+  document.getElementById('rhyQ').textContent=`${RHY.qNum}/6`;
+  document.getElementById('rhyResult').style.display='none';
+  document.getElementById('rhyPlayBtn').disabled=false;
+  document.getElementById('rhyPlayBtn').textContent='▶ Ritmi Çal';
+
+  // Doğru kalıbı seç — bir öncekinden farklı
+  let cidx;
+  do{ cidx=Math.floor(Math.random()*RHYTHM_PATTERNS.length); } while(cidx===RHY.lastIdx);
+  RHY.lastIdx=cidx;
+  const correct=RHYTHM_PATTERNS[cidx];
+
+  // 2 yanlış şık — farklı kalıplar
+  const pool=RHYTHM_PATTERNS.filter((_,i)=>i!==cidx);
+  const shuffle=pool.sort(()=>Math.random()-.5);
+  const wrong1=shuffle[0], wrong2=shuffle[1];
+
+  // 3 şık — doğruyu rastgele konuma koy
+  RHY.correct=Math.floor(Math.random()*3);
+  RHY.opts=[wrong1,wrong2,correct];
+  // doğruyu seçilen konuma taşı
+  const tmp=RHY.opts[RHY.correct];
+  RHY.opts[RHY.correct]=correct;
+  RHY.opts[RHY.correct===0?1:RHY.correct===1?0:1]=tmp===correct?wrong1:tmp;
+
+  // Ölçü bilgisi
+  document.getElementById('rhyQType').textContent=`${correct.metre} · ${correct.bpm} BPM`;
+  document.getElementById('rhyQText').textContent='Ritimi dinleyip şıkları karşılaştır';
+
+  // Metronom noktaları
+  const nDots=correct.metre==='4/4'?4:2;
+  document.getElementById('metroDots').innerHTML=
+    Array.from({length:nDots},(_,i)=>`<div class="mdot" id="md${i}"></div>`).join('')+
+    `<span class="metro-bpm">${correct.bpm} BPM</span>`;
+
+  // Şıkları render et
+  renderRhyChoices();
+}
+
+function renderRhyChoices(){
+  const container=document.getElementById('rhyChoices');
+  container.innerHTML='';
+  ['A','B','C'].forEach((lbl,i)=>{
+    const pat=RHY.opts[i];
+    // Beat sembollerini göster
+    const beatStr=pat.beats.map(b=>b.s).join(' ');
+    const row=document.createElement('div');
+    row.id=`rhyOpt${i}`;
+    row.style.cssText=`display:flex;align-items:center;gap:10px;padding:12px 14px;
+      background:var(--s2);border:1px solid var(--brd);border-radius:var(--rs);cursor:pointer;transition:.2s`;
+    row.innerHTML=`
+      <span style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--gold);min-width:22px">${lbl}</span>
+      <div style="flex:1">
+        <div style="font-size:18px;letter-spacing:4px;color:var(--text)">${beatStr}</div>
+        <div style="font-size:10px;color:var(--td);margin-top:2px">${pat.label} · ${pat.metre}</div>
+      </div>
+      <button onclick="event.stopPropagation();playRhyOpt(${i})"
+        style="padding:6px 11px;background:var(--s1);border:1px solid var(--brd);border-radius:6px;
+        color:var(--tm);font-size:12px;cursor:pointer;white-space:nowrap">▶ Çal</button>`;
+    row.onclick=()=>selectRhyOpt(i);
+    container.appendChild(row);
+  });
+}
+
+async function playRhyOpt(i){
+  const pat=RHY.opts[i];
+  const nDots=pat.metre==='4/4'?4:2;
+  const beatMs=60000/pat.bpm;
+  let beatIdx=0;
+  for(const b of pat.beats){
+    document.querySelectorAll('.mdot').forEach(d=>d.classList.remove('on'));
+    document.getElementById(`md${beatIdx%nDots}`)?.classList.add('on');
+    clickSound(beatIdx%nDots===0);
+    beatIdx++;
+    await sleep(Math.round(beatMs*b.d));
+  }
+  document.querySelectorAll('.mdot').forEach(d=>d.classList.remove('on'));
+}
+
+function selectRhyOpt(i){
+  if(RHY.answered) return;
+  RHY.sel=i;
+  ['rhyOpt0','rhyOpt1','rhyOpt2'].forEach((id,j)=>{
+    const el=document.getElementById(id);
+    el.style.borderColor=j===i?'var(--gold)':'var(--brd)';
+    el.style.background=j===i?'rgba(212,168,67,.1)':'var(--s2)';
+  });
+  // Seçilen şıkla doğruyu onayla
+  confirmRhyAnswer();
+}
+
+function confirmRhyAnswer(){
+  if(RHY.sel===null||RHY.answered) return;
+  RHY.answered=true;
+  const ok=RHY.sel===RHY.correct;
+
+  // Renkleri göster
+  ['rhyOpt0','rhyOpt1','rhyOpt2'].forEach((id,j)=>{
+    const el=document.getElementById(id);
+    if(j===RHY.correct){
+      el.style.borderColor='var(--ok)';
+      el.style.background='rgba(61,184,122,.1)';
+    } else if(j===RHY.sel&&!ok){
+      el.style.borderColor='var(--err)';
+      el.style.background='rgba(224,72,72,.08)';
+    }
+  });
+
+  RHY.total++; if(ok) RHY.ok++;
+  document.getElementById('rhyScore').textContent=`${RHY.ok} / ${RHY.total}`;
+
+  // Sonuç kartı
+  const res=document.getElementById('rhyResult');
+  res.style.display='block';
+  document.getElementById('rhyResultEmoji').textContent=ok?'✅':'❌';
+  document.getElementById('rhyResultPct').textContent=ok?'Doğru!':'Yanlış';
+  const correctPat=RHY.opts[RHY.correct];
+  document.getElementById('rhyResultMsg').textContent=
+    ok?`${String.fromCharCode(65+RHY.correct)} şıkkı — ${correctPat.label}`
+      :`Doğru cevap: ${String.fromCharCode(65+RHY.correct)} — ${correctPat.label}`;
+
+  ST.scores.rhythm=Math.round(RHY.ok/RHY.total*100);
+  updHomeScores();
+  toast(ok?`✓ Doğru! ${String.fromCharCode(65+RHY.correct)} şıkkı`:`✗ Yanlış. Doğru: ${String.fromCharCode(65+RHY.correct)}`,ok);
+}
+
+async function rhyPlay(){
+  const correct=RHY.opts[RHY.correct];
+  if(!correct) return;
+  const btn=document.getElementById('rhyPlayBtn');
+  btn.disabled=true; btn.textContent='♩ Çalıyor…';
+
+  const nDots=correct.metre==='4/4'?4:2;
+  const beatMs=60000/correct.bpm;
+
+  // 1 ölçü sayım
+  for(let i=0;i<nDots;i++){
+    document.querySelectorAll('.mdot').forEach(d=>d.classList.remove('on'));
+    document.getElementById(`md${i}`)?.classList.add('on');
+    clickSound(i===0);
+    await sleep(beatMs);
+  }
+  // 2 ölçü çal
+  for(let bar=0;bar<2;bar++){
+    let bi=0;
+    for(const b of correct.beats){
+      document.querySelectorAll('.mdot').forEach(d=>d.classList.remove('on'));
+      document.getElementById(`md${bi%nDots}`)?.classList.add('on');
+      clickSound(bi%nDots===0);
+      bi++;
+      await sleep(Math.round(beatMs*b.d));
+    }
+  }
+  document.querySelectorAll('.mdot').forEach(d=>d.classList.remove('on'));
+  btn.disabled=false; btn.textContent='▶ Tekrar Çal';
+}
+
+function rhyNext(){
+  if(RHY.qNum>=6){
+    // 6 soruda bitir
+    toast(`Bitti! ${RHY.ok}/6 doğru`,true);
+    initRhy(); return;
+  }
+  newRhyQuestion();
+}
+
+// Eski fonksiyonlar — artık kullanılmıyor
+function rhyReset(){}
+function rhyCheck(){}
+function rhyTap(){}
+
+function clickSound(strong){
+  const ctx=getCtx(), now=ctx.currentTime;
+  const osc=ctx.createOscillator();
+  const gain=ctx.createGain();
+  const filt=ctx.createBiquadFilter();
+  filt.type='bandpass';
+  filt.frequency.value=strong?1200:900;
+  filt.Q.value=2;
+  osc.connect(filt); filt.connect(gain); gain.connect(ctx.destination);
+  osc.type='square';
+  osc.frequency.setValueAtTime(strong?1200:900,now);
+  osc.frequency.exponentialRampToValueAtTime(strong?400:300,now+0.04);
+  gain.gain.setValueAtTime(0,now);
+  gain.gain.linearRampToValueAtTime(strong?0.55:0.35,now+0.003);
+  gain.gain.exponentialRampToValueAtTime(0.0001,now+0.06);
+  osc.start(now); osc.stop(now+0.07);
+  // Kısa gövde sesi (tok vuruş hissi)
+  const buf=ctx.createBuffer(1,ctx.sampleRate*0.04,ctx.sampleRate);
+  const bd=buf.getChannelData(0);
+  for(let i=0;i<bd.length;i++) bd[i]=(Math.random()*2-1)*Math.exp(-i/(ctx.sampleRate*0.008));
+  const ns=ctx.createBufferSource(); const ng=ctx.createGain();
+  ns.buffer=buf; ns.connect(ng); ng.connect(ctx.destination);
+  ng.gain.setValueAtTime(strong?0.25:0.14,now);
+  ng.gain.exponentialRampToValueAtTime(0.0001,now+0.04);
+  ns.start(now);
+}
+
+// ════════════════════════════════════════════════════════
+//  FARKI BUL TESTİ
+//  Türler: hangi_farklı (A/B/C den farklı olanı bul)
+//          hangisi_aynı (A/B/C den referansla aynı olanı bul)
+// ════════════════════════════════════════════════════════
+const DIFF={type:'pitch',correct:null,sel:null,total:0,correct_n:0,qNum:0};
+
+function setDiffType(t,el){
+  DIFF.type=t;
+  document.querySelectorAll('#diffTypeRow .cbtn').forEach(b=>b.classList.remove('sel'));
+  el.classList.add('sel');
+}
+
+function initDiff(){
+  DIFF.total=0;DIFF.correct_n=0;DIFF.qNum=0;
+  document.getElementById('diffTotal').textContent='0 / 0';
+  document.getElementById('diffQNum').textContent='—';
+  document.getElementById('dqText').textContent='Başlamak için tür seçin ve ▶ Yeni Soru butonuna basın.';
+  document.getElementById('dqABC').innerHTML='';
+  document.getElementById('dqType').textContent='—';
+}
+
+function newDiffQ(){
+  DIFF.correct=null;DIFF.sel=null;DIFF.qNum++;
+  document.getElementById('diffQNum').textContent='Soru '+DIFF.qNum;
+  const t=DIFF.type;
+  // Farklı türlere göre soru oluştur
+  if(t==='pitch'||t==='same_pitch') buildPitchDiff(t==='same_pitch');
+  else if(t==='melody'||t==='same_melody') buildMelodyDiff(t==='same_melody');
+  else if(t==='rhythm'||t==='same_rhythm') buildRhythmDiff(t==='same_rhythm');
+}
+
+function buildPitchDiff(findSame){
+  const base=60+Math.floor(Math.random()*12);
+  const opts=[0,0,0];
+
+  if(!findSame){
+    // "Farklı olanı bul": 2 seçenek AYNI nota, 1 seçenek FARKLI
+    DIFF.correct=Math.floor(Math.random()*3);
+    let diff; do{ diff=60+Math.floor(Math.random()*12); }while(diff===base);
+    for(let i=0;i<3;i++) opts[i]= (i===DIFF.correct) ? diff : base;
+    document.getElementById('dqType').textContent='🎵 Hangi Nota Farklı?';
+    document.getElementById('dqText').textContent='3 notadan biri farklı — hangisi?';
+  } else {
+    // "Aynısını bul": referans çalınır, 1 seçenek AYNI, 2 seçenek FARKLI
+    DIFF.correct=Math.floor(Math.random()*3);
+    for(let i=0;i<3;i++){
+      if(i===DIFF.correct){ opts[i]=base; }
+      else {
+        let diff; do{ diff=60+Math.floor(Math.random()*12); }while(diff===base);
+        opts[i]=diff;
+      }
+    }
+    document.getElementById('dqType').textContent='🎵 Hangisi Aynı Nota?';
+    document.getElementById('dqText').textContent=`Referans nota çalındı — aşağıdakilerden hangisi AYNI notadır?`;
+    setTimeout(()=>piano(base,1.8),100);
+  }
+
+  renderABC(['A','B','C'],
+    ['▶ Çal','▶ Çal','▶ Çal'],
+    i=>piano(opts[i],1.8),
+    i=>'');
+}
+
+function buildMelodyDiff(findSame){
+  const baseMel=MELODIES[Math.floor(Math.random()*MELODIES.length)];
+  const baseNotes=[...baseMel.notes];
+
+  function mutate(notes){
+    const n=[...notes];
+    // En az 2 notayı değiştir — fark net duyulsun
+    const positions=[];
+    while(positions.length<2){
+      const p=Math.floor(Math.random()*n.length);
+      if(!positions.includes(p)) positions.push(p);
+    }
+    positions.forEach(pos=>{
+      let nw;
+      do{ nw=n[pos]+(Math.floor(Math.random()*3)+2)*(Math.random()<.5?1:-1); }while(nw===n[pos]);
+      n[pos]=Math.max(55,Math.min(84,nw));
+    });
+    return n;
+  }
+
+  // 3 seçenek oluştur
+  const opts=[mutate(baseNotes),mutate(baseNotes),mutate(baseNotes)];
+
+  if(!findSame){
+    // "Farklı olanı bul": 2 seçenek AYNI (orijinal), 1 seçenek FARKLI
+    // DIFF.correct = farklı olan şıkkın index'i
+    DIFF.correct=Math.floor(Math.random()*3);
+    for(let i=0;i<3;i++){
+      opts[i]= (i===DIFF.correct) ? mutate(baseNotes) : [...baseNotes];
+    }
+    document.getElementById('dqType').textContent='🎻 Hangi Ezgi Farklı?';
+    document.getElementById('dqText').textContent=`3 ezgiden biri farklı — hangisi? (${baseMel.metre})`;
+  } else {
+    // "Aynısını bul": referans çalınır, 2 seçenek FARKLI, 1 seçenek AYNI
+    // DIFF.correct = aynı olan şıkkın index'i
+    DIFF.correct=Math.floor(Math.random()*3);
+    for(let i=0;i<3;i++){
+      opts[i]= (i===DIFF.correct) ? [...baseNotes] : mutate(baseNotes);
+    }
+    document.getElementById('dqType').textContent='🎻 Hangisi Aynı Ezgi?';
+    document.getElementById('dqText').textContent=`"${baseMel.name}" ezgisi çalındı. Aşağıdakilerden hangisi AYNI ezgidir?`;
+    setTimeout(()=>playMelody(baseNotes,.7),100);
+  }
+
+  renderABC(['A','B','C'],['Ezgi A — ▶ için tıkla','Ezgi B — ▶ için tıkla','Ezgi C — ▶ için tıkla'],
+    i=>{playMelody(opts[i],.68);},
+    i=>`Ezgi ${String.fromCharCode(65+i)}`);
+}
+
+function buildRhythmDiff(findSame){
+  const baseIdx=Math.floor(Math.random()*RHYTHM_PATTERNS.length);
+  const basePat=RHYTHM_PATTERNS[baseIdx];
+
+  function mutateRhy(beats){
+    const b=beats.map(x=>({...x}));
+    // En az 2 vuruşu değiştir
+    const positions=[];
+    while(positions.length<Math.min(2,b.length)){
+      const p=Math.floor(Math.random()*b.length);
+      if(!positions.includes(p)) positions.push(p);
+    }
+    positions.forEach(pos=>{
+      const choices=[0.25,0.5,1,1.5,2].filter(d=>d!==b[pos].d);
+      const newD=choices[Math.floor(Math.random()*choices.length)];
+      b[pos]={d:newD, s:newD>=2?'𝅗𝅥':newD>=1?'♩':newD===0.5?'♪':'♬'};
+    });
+    return b;
+  }
+
+  const opts=[null,null,null];
+
+  if(!findSame){
+    // "Farklı olanı bul": 2 seçenek AYNI ritim, 1 seçenek FARKLI
+    DIFF.correct=Math.floor(Math.random()*3);
+    for(let i=0;i<3;i++){
+      opts[i]= (i===DIFF.correct) ? mutateRhy(basePat.beats) : [...basePat.beats.map(x=>({...x}))];
+    }
+    document.getElementById('dqType').textContent='🥁 Hangi Ritim Farklı?';
+    document.getElementById('dqText').textContent=`3 ritimden biri farklı (${basePat.metre} — ${basePat.bpm} BPM). Hangisi?`;
+  } else {
+    // "Aynısını bul": referans çalınır, 1 seçenek AYNI, 2 seçenek FARKLI
+    DIFF.correct=Math.floor(Math.random()*3);
+    for(let i=0;i<3;i++){
+      opts[i]= (i===DIFF.correct) ? [...basePat.beats.map(x=>({...x}))] : mutateRhy(basePat.beats);
+    }
+    document.getElementById('dqType').textContent='🥁 Hangisi Aynı Ritim?';
+    document.getElementById('dqText').textContent=`Temel ritim çalındı. Hangisi aynı? (${basePat.metre} — ${basePat.bpm} BPM)`;
+    setTimeout(()=>playRhythm(basePat),150);
+  }
+
+  renderABC(['A','B','C'],['Ritim A — ▶ için tıkla','Ritim B — ▶ için tıkla','Ritim C — ▶ için tıkla'],
+    i=>playRhythm({...basePat, beats:opts[i]}),
+    i=>`Ritim ${String.fromCharCode(65+i)}`);
+}
+
+async function playRhythm(pat){
+  const beatMs=60000/pat.bpm;
+  const nDots=pat.metre==='4/4'?4:2;
+  let beatIdx=0;
+  for(const b of pat.beats){
+    const isStr=beatIdx%nDots===0;
+    clickSound(isStr);
+    beatIdx++;
+    await sleep(Math.round(beatMs*b.d));
+  }
+}
+
+function renderABC(labels, descs, onPlay, getDesc){
+  const abc=document.getElementById('dqABC'); abc.innerHTML='';
+  labels.forEach((lbl,i)=>{
+    const row=document.createElement('div'); row.className='abc-btn'; row.id=`abc${i}`;
+    row.innerHTML=`<span class="abc-lbl">${lbl}</span>
+      <span class="abc-txt">${descs[i]}</span>
+      <button class="abc-play" onclick="event.stopPropagation();abcPlay(${i})">▶ Çal</button>`;
+    row.onclick=()=>abcSelect(i);
+    abc.appendChild(row);
+  });
+  window._abcFns=onPlay;
+  // Soru değişince seçimi sıfırla
+  DIFF.sel=null;
+}
+
+function abcPlay(i){ if(window._abcFns) window._abcFns(i); }
+
+function abcSelect(i){
+  document.querySelectorAll('.abc-btn').forEach(b=>b.classList.remove('sel'));
+  document.getElementById(`abc${i}`)?.classList.add('sel');
+  DIFF.sel=i;
+}
+
+function checkDiff(){
+  if(DIFF.sel===null){toast('Önce bir şık seçin! (A, B veya C)',false);return;}
+  const ok=DIFF.sel===DIFF.correct;
+  // Doğru/yanlış renkler
+  document.querySelectorAll('.abc-btn').forEach((b,i)=>{
+    b.classList.remove('sel');
+    if(i===DIFF.correct) b.classList.add('correct');
+    else if(i===DIFF.sel&&!ok) b.classList.add('wrong');
+  });
+  DIFF.total++; if(ok) DIFF.correct_n++;
+  const scoreText=`${DIFF.correct_n} / ${DIFF.total}`;
+  document.getElementById('diffTotal').textContent=scoreText;
+  document.getElementById('diffChip').textContent=scoreText;
+  toast(ok
+    ? `✓ Doğru! Şık ${String.fromCharCode(65+DIFF.correct)}`
+    : `✗ Yanlış. Doğru cevap: Şık ${String.fromCharCode(65+DIFF.correct)}`,
+    ok);
+}
+
+// ════════════════════════════════════════════════════════
+//  SINAV SİMÜLASYONU
+// ════════════════════════════════════════════════════════
+const EXM={step:0,scores:[],timer:null,secs:420};
+const EXM_STEPS=[
+  {ttl:'Bölüm 1: Tek Ses',type:'single'},{ttl:'Bölüm 2: Çift Ses',type:'double'},
+  {ttl:'Bölüm 3: Üç Ses',type:'triple'},{ttl:'Bölüm 4: Dört Ses',type:'four'},
+  {ttl:'Bölüm 5: Ezgi',type:'melody'},{ttl:'Bölüm 6: Ritim',type:'rhythm'},
+  {ttl:'Sonuç',type:'result'},
+];
+function initExam(){
+  EXM.step=0;EXM.scores=[];EXM.secs=420;
+  document.getElementById('examBar').innerHTML=EXM_STEPS.slice(0,-1).map((_,i)=>`<div class="spip" id="ep${i}"></div>`).join('');
+  document.getElementById('ep0')?.classList.add('on');
+  if(EXM.timer) clearInterval(EXM.timer);
+  EXM.timer=setInterval(()=>{
+    EXM.secs--;
+    const m=String(Math.floor(EXM.secs/60)).padStart(2,'0'),s=String(EXM.secs%60).padStart(2,'0');
+    document.getElementById('examTimer').textContent=`${m}:${s}`;
+    if(EXM.secs<=0){clearInterval(EXM.timer);examNext();}
+  },1000);
+  renderExamStep();
+}
+function renderExamStep(){
+  const step=EXM_STEPS[EXM.step];
+  document.getElementById('examTtl').textContent=step.ttl;
+  document.getElementById('examCtr').textContent=step.type==='result'?'':step.ttl+' — Hazır olduğunuzda ilerleyin';
+  const content=document.getElementById('examContent');
+  if(step.type==='result'){
+    clearInterval(EXM.timer);
+    const avg=EXM.scores.length?Math.round(EXM.scores.reduce((a,b)=>a+b,0)/EXM.scores.length):0;
+    const emoji=avg>=90?'🏆':avg>=75?'🎉':avg>=50?'📈':'🔄';
+    const mods=['Tek Ses','Çift Ses','Üç Ses','Dört Ses','Ezgi','Ritim'];
+    content.innerHTML=`<div style="background:var(--s1);border:1px solid var(--brd);border-radius:var(--r);padding:26px 16px;text-align:center;margin-top:8px">
+      <div style="font-size:48px;margin-bottom:12px">${emoji}</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:60px;font-weight:700;
+        background:linear-gradient(135deg,var(--gold3),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1">${avg}%</div>
+      <div style="color:var(--tm);font-size:13px;margin-top:6px">Genel Sınav Puanı</div>
+      <div style="margin-top:18px;display:flex;flex-direction:column;gap:7px">
+        ${EXM.scores.map((s,i)=>`<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 12px;background:var(--s2);border-radius:8px;border:1px solid var(--brd)">
+          <span style="font-size:12px;color:var(--tm)">${mods[i]||'Bölüm '+(i+1)}</span>
+          <span style="font-family:'DM Mono',monospace;font-size:13px;color:${s>=75?'var(--ok)':s>=50?'var(--gold)':'var(--err)'}">${s}%</span>
+        </div>`).join('')}
+      </div>
+      <button onclick="goTo('home')" style="margin-top:18px;width:100%;padding:12px;background:linear-gradient(135deg,var(--gold),#9a6820);border:none;border-radius:var(--rs);color:#07090f;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer">Ana Menüye Dön</button>
+    </div>`;
+    return;
+  }
+  const icons={single:'🎵',double:'🎶',triple:'🎼',four:'🎹',melody:'🎻',rhythm:'🥁'};
+  const descs={single:'Çalınan notayı dinleyip sesle tekrar edin',
+    double:'İki sesi AYNI ANDA dinleyin — aralığı belirleyin',
+    triple:'Üç sesi BLOK AKOR olarak dinleyin — türünü belirleyin',
+    four:'Dört sesi BLOK AKOR olarak dinleyin — 7li türü belirleyin',
+    melody:'Ezgiyi dinleyin ve sesle tekrar edin',
+    rhythm:'Ritmi dinleyin ve el çırparak tekrar edin'};
+  content.innerHTML=`<div style="text-align:center;padding:22px 0">
+    <div style="font-size:48px;margin-bottom:10px">${icons[step.type]}</div>
+    <div style="font-family:'Cormorant Garamond',serif;font-size:15px;color:var(--gold2);margin-bottom:6px">${descs[step.type]}</div>
+    <div style="font-size:11px;color:var(--td);margin-bottom:18px">Hazır olduğunuzda çalın</div>
+    <button id="exPlayBtn" onclick="examPlay('${step.type}')" style="padding:11px 24px;background:var(--s2);border:1px solid var(--brd);border-radius:var(--rs);color:var(--text);cursor:pointer;margin:4px;font-family:'DM Sans',sans-serif;font-size:12px">▶ Çal / Dinle</button>
+    ${step.type!=='rhythm'?`<button onclick="examRec()" style="padding:11px 24px;background:rgba(212,168,67,.1);border:1px solid rgba(212,168,67,.35);border-radius:var(--rs);color:var(--gold2);cursor:pointer;margin:4px;font-family:'DM Sans',sans-serif;font-size:12px">🎤 Söyle</button>`:''}
+    ${step.type==='rhythm'?`<div onclick="examTap(this)" style="margin:14px 0;padding:18px;background:var(--s1);border:2px dashed var(--brd);border-radius:var(--r);cursor:pointer;color:var(--tm);font-size:12px">👋 Buraya dokun / el çırp</div>`:''}
+    <button onclick="examNext()" style="display:block;width:100%;margin-top:12px;padding:12px;background:linear-gradient(135deg,rgba(212,168,67,.12),rgba(212,168,67,.04));border:1px solid rgba(212,168,67,.35);border-radius:var(--rs);color:var(--gold2);cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:600;font-size:12px">Sonraki Bölüm →</button>
+  </div>`;
+}
+
+async function examPlay(type){
+  document.getElementById('exPlayBtn')?.setAttribute('disabled','');
+  const r=60+Math.floor(Math.random()*9);
+  if(type==='single') await playNote(r,2.2);
+  else if(type==='double') await playChord([r,r+7],2.5);
+  else if(type==='triple') await playChord([r,r+4,r+7],2.8);
+  else if(type==='four') await playChord([r,r+4,r+7,r+10],3);
+  else if(type==='melody'){const m=MELODIES[Math.floor(Math.random()*MELODIES.length)];await playMelody(m.notes,.75);}
+  else if(type==='rhythm'){const p=RHYTHM_PATTERNS[Math.floor(Math.random()*RHYTHM_PATTERNS.length)];await playRhythm(p);}
+  document.getElementById('exPlayBtn')?.removeAttribute('disabled');
+}
+function examRec(){toast('🎤 Kaydediliyor… (3sn)',true);setTimeout(()=>toast('✓ Kaydedildi',true),3000);}
+function examTap(el){el.style.background='rgba(212,168,67,.08)';el.style.borderColor='var(--gold)';el.textContent='✓ Ritim girildi';}
+function examNext(){
+  EXM.scores.push(Math.round(55+Math.random()*43));
+  document.getElementById(`ep${EXM.step}`)?.classList.replace('on','done');
+  EXM.step++;
+  document.getElementById(`ep${EXM.step}`)?.classList.add('on');
+  renderExamStep();
+}
+
+// ════════════════════════════════════════════════════════
+//  PROFİL
+// ════════════════════════════════════════════════════════
+function initProfile(){
+  const days=['Pt','Sa','Çr','Pr','Cu','Ct','Pz'],sc=[72,80,68,85,78,90,82];
+  const mx=Math.max(...sc);
+  document.getElementById('weekChart').innerHTML=days.map((d,i)=>
+    `<div class="bc"><div class="bf" style="height:${sc[i]/mx*64}px"></div><div class="bl">${d}</div></div>`).join('');
+  const mods=[
+    {i:'🎵',n:'Tek Ses',p:ST.scores.single||82,c:'#d4a843'},
+    {i:'🎶',n:'Çift Ses',p:ST.scores.double||75,c:'#4f8fe0'},
+    {i:'🎼',n:'Üç Ses',p:ST.scores.triple||68,c:'#9a5ae0'},
+    {i:'🎹',n:'Dört Ses',p:ST.scores.four||60,c:'#e07a9a'},
+    {i:'🎻',n:'Ezgi',p:ST.scores.melody||78,c:'#3db87a'},
+    {i:'🥁',n:'Ritim',p:ST.scores.rhythm||71,c:'#e07a3a'},
+  ];
+  document.getElementById('pAvg').textContent=Math.round(mods.reduce((a,m)=>a+m.p,0)/mods.length)+'%';
+  document.getElementById('modScores').innerHTML=mods.map(m=>`
+    <div class="ms-row"><div class="ms-ic">${m.i}</div>
+      <div class="ms-inf"><div class="ms-nm">${m.n}</div>
+        <div class="ms-b"><div class="ms-bf" style="width:${m.p}%;background:${m.c}"></div></div>
+      </div>
+      <div class="ms-p" style="color:${m.c}">${m.p}%</div>
+    </div>`).join('');
+}
+
+// ════════════════════════════════════════════════════════
+//  YÜKLEME EKRANI
+// ════════════════════════════════════════════════════════
+
+// Özel içerik deposu
+const CUSTOM = {
+  audios: [],    // {name, type, url, audioBuffer}
+  melodies: [],  // {name, metre, tempo, notes, midi[]}
+  rhythms: [],   // {name, metre, bpm, beats[]}
+};
+
+// Nota klavyesi bilgileri
+const KEY_NOTES = [
+  {tr:'Do',midi:60},{tr:'Do#',midi:61},{tr:'Re',midi:62},{tr:'Re#',midi:63},
+  {tr:'Mi',midi:64},{tr:'Fa',midi:65},{tr:'Fa#',midi:66},{tr:'Sol',midi:67},
+  {tr:'Sol#',midi:68},{tr:'La',midi:69},{tr:'La#',midi:70},{tr:'Si',midi:71},
+  {tr:'Do²',midi:72},{tr:'Re²',midi:74},{tr:'Mi²',midi:76},{tr:'Sol²',midi:79},
+];
+
+// Builder state
+const UB = {
+  melNotes: [],      // {tr, midi}[]
+  melMetre: '2/4',
+  rhyBeats: [],      // {s, d}[]
+  rhyMetre: '2/4',
+  audioType: 'single',
+  pendingAudioFile: null,
+};
+
+function initUpload(){
+  buildKeyboard();
+  renderMelSequence();
+  renderRhySequence();
+  renderCustomList();
+  updateUploadChip();
+}
+
+// ── Nota klavyesi ──
+function buildKeyboard(){
+  const kb = document.getElementById('noteKeyboard');
+  if(!kb) return;
+  kb.innerHTML = KEY_NOTES.map(n=>`
+    <button onclick="addMelNote(${n.midi},'${n.tr}')"
+      style="padding:7px 10px;background:${n.tr.includes('#')?'var(--s3)':'var(--s2)'};
+      border:1px solid ${n.tr.includes('#')?'var(--brd2)':'var(--brd)'};
+      border-radius:6px;color:${n.tr.includes('#')?'var(--gold)':'var(--text)'};
+      font-family:'DM Sans',sans-serif;font-size:11px;cursor:pointer;transition:.15s;
+      min-width:44px"
+      onmouseover="this.style.borderColor='var(--gold)'"
+      onmouseout="this.style.borderColor='${n.tr.includes('#')?'var(--brd2)':'var(--brd)'}'">
+      ${n.tr}
+    </button>`).join('');
+}
+
+// ── Ezgi Builder ──
+function addMelNote(midi, tr){
+  piano(midi, 0.5);
+  UB.melNotes.push({midi, tr});
+  renderMelSequence();
+}
+
+function selectMelMetre(m, btn){
+  UB.melMetre = m;
+  document.querySelectorAll('#mel24btn,#mel44btn').forEach(b=>b.classList.remove('sel'));
+  btn.classList.add('sel');
+}
+
+function renderMelSequence(){
+  const el = document.getElementById('melSequence');
+  if(!el) return;
+  if(UB.melNotes.length === 0){
+    el.innerHTML = '<span style="color:var(--td);font-size:11px">Yukarıdan nota ekleyin…</span>';
+    return;
+  }
+  el.innerHTML = UB.melNotes.map((n,i)=>`
+    <div style="display:flex;flex-direction:column;align-items:center;gap:2px;
+      background:rgba(212,168,67,.1);border:1px solid rgba(212,168,67,.3);
+      border-radius:6px;padding:5px 8px;cursor:pointer"
+      onclick="removeMelNote(${i})" title="Sil">
+      <span style="font-family:'Cormorant Garamond',serif;font-size:14px;font-weight:700;color:var(--gold2)">${n.tr}</span>
+      <span style="font-size:8px;color:var(--td)">${i+1}</span>
+    </div>`).join('') +
+    `<span style="font-size:9px;color:var(--td);align-self:flex-end;padding-bottom:4px">(nota üstüne tıkla = sil)</span>`;
+}
+
+function removeMelNote(i){
+  UB.melNotes.splice(i,1);
+  renderMelSequence();
+}
+
+function clearMelody(){
+  UB.melNotes = [];
+  document.getElementById('melName2').value = '';
+  renderMelSequence();
+}
+
+async function previewMelody(){
+  if(UB.melNotes.length === 0){ toast('Önce nota ekleyin!', false); return; }
+  const tempo = parseFloat(document.getElementById('melTempo').value);
+  await playMelody(UB.melNotes.map(n=>n.midi), tempo);
+}
+
+function saveMelody(){
+  if(UB.melNotes.length < 2){ toast('En az 2 nota ekleyin!', false); return; }
+  const name = document.getElementById('melName2').value.trim() ||
+    `Özel Ezgi ${CUSTOM.melodies.length+1}`;
+  const tempo = parseFloat(document.getElementById('melTempo').value);
+  const entry = {
+    name: '★ ' + name,
+    metre: UB.melMetre,
+    tempo,
+    notes: UB.melNotes.map(n=>n.midi),
+  };
+  CUSTOM.melodies.push(entry);
+  MELODIES.push(entry); // Ana listeye de ekle
+  toast(`✓ "${entry.name}" ezgi listesine eklendi!`, true);
+  clearMelody();
+  renderCustomList();
+  updateUploadChip();
+}
+
+// ── Ritim Builder ──
+function selectRhyMetre(m, btn){
+  UB.rhyMetre = m;
+  document.querySelectorAll('#rhy24btn,#rhy44btn').forEach(b=>b.classList.remove('sel'));
+  btn.classList.add('sel');
+  renderRhySequence();
+}
+
+function addBeat(d, s, label){
+  const maxDur = UB.rhyMetre === '4/4' ? 4.0 : 2.0;
+  const current = UB.rhyBeats.reduce((a,b)=>a+b.d,0);
+  if(current + d > maxDur + 0.001){
+    toast(`${UB.rhyMetre} ölçüsü dolu! (${current}/${maxDur})`, false);
+    return;
+  }
+  UB.rhyBeats.push({s, d});
+  // Tık önizlemesi
+  clickSound(UB.rhyBeats.length % (UB.rhyMetre==='4/4'?4:2) === 1);
+  renderRhySequence();
+}
+
+function renderRhySequence(){
+  const el = document.getElementById('rhySequence');
+  const tot = document.getElementById('rhyTotal');
+  if(!el) return;
+  const maxDur = UB.rhyMetre === '4/4' ? 4.0 : 2.0;
+  const current = Math.round(UB.rhyBeats.reduce((a,b)=>a+b.d,0)*100)/100;
+  const full = Math.abs(current - maxDur) < 0.01;
+
+  if(tot) tot.innerHTML = `<span style="color:${full?'var(--ok)':current>maxDur?'var(--err)':'var(--gold2)'}">Toplam: ${current} / ${maxDur} ${full?'✓':''}</span>`;
+
+  if(UB.rhyBeats.length === 0){
+    el.innerHTML = '<span style="color:var(--td);font-size:11px">Nota değeri ekleyin…</span>';
+    return;
+  }
+  el.innerHTML = UB.rhyBeats.map((b,i)=>`
+    <div style="display:flex;flex-direction:column;align-items:center;gap:2px;
+      background:rgba(224,122,58,.1);border:1px solid rgba(224,122,58,.3);
+      border-radius:6px;padding:5px 10px;cursor:pointer;min-width:36px"
+      onclick="removeBeat(${i})" title="Sil">
+      <span style="font-size:18px;color:var(--warm)">${b.s}</span>
+      <span style="font-size:8px;color:var(--td)">${b.d===1?'♩':b.d===0.5?'♪':b.d===1.5?'♩·':b.d===2?'𝅗':'♬'}</span>
+    </div>`).join('') +
+    `<span style="font-size:9px;color:var(--td);align-self:flex-end;padding-bottom:4px">(tıkla = sil)</span>`;
+}
+
+function removeBeat(i){
+  UB.rhyBeats.splice(i,1);
+  renderRhySequence();
+}
+
+function clearRhythm2(){
+  UB.rhyBeats = [];
+  document.getElementById('rhyLabel').value = '';
+  renderRhySequence();
+}
+
+async function previewRhythm2(){
+  if(UB.rhyBeats.length === 0){ toast('Önce nota değeri ekleyin!', false); return; }
+  const bpm = parseInt(document.getElementById('rhyBPM').value) || 80;
+  await playRhythm({ metre: UB.rhyMetre, bpm, beats: UB.rhyBeats });
+}
+
+function saveRhythm2(){
+  if(UB.rhyBeats.length === 0){ toast('En az bir nota değeri ekleyin!', false); return; }
+  const maxDur = UB.rhyMetre === '4/4' ? 4.0 : 2.0;
+  const current = UB.rhyBeats.reduce((a,b)=>a+b.d,0);
+  if(Math.abs(current - maxDur) > 0.01){
+    toast(`Ölçü tamamlanmadı: ${Math.round(current*100)/100} / ${maxDur}`, false);
+    return;
+  }
+  const bpm = parseInt(document.getElementById('rhyBPM').value) || 80;
+  const name = document.getElementById('rhyLabel').value.trim() ||
+    `Özel Kalıp ${CUSTOM.rhythms.length+1}`;
+  const entry = {
+    metre: UB.rhyMetre,
+    bpm,
+    label: '★ ' + name,
+    beats: [...UB.rhyBeats],
+  };
+  CUSTOM.rhythms.push(entry);
+  RHYTHM_PATTERNS.push(entry); // Ana listeye de ekle
+  toast(`✓ "${entry.label}" ritim listesine eklendi!`, true);
+  clearRhythm2();
+  renderCustomList();
+  updateUploadChip();
+}
+
+// ── Ses Dosyası Yükleme ──
+function selectAudioType(btn, type){
+  UB.audioType = type;
+  document.querySelectorAll('#audioTypeSelector .cbtn').forEach(b=>b.classList.remove('sel'));
+  btn.classList.add('sel');
+}
+
+function handleAudioFiles(files){
+  if(!files || files.length === 0) return;
+  const file = files[0];
+  UB.pendingAudioFile = file;
+  // Önizleme göster
+  const url = URL.createObjectURL(file);
+  document.getElementById('audioPlayer').src = url;
+  document.getElementById('audioFileName').textContent =
+    `📄 ${file.name}  (${(file.size/1024).toFixed(0)} KB)`;
+  document.getElementById('audioPreview').style.display = 'block';
+  // Alan güncelle
+  const zone = document.getElementById('audioDropZone');
+  zone.style.borderColor = 'var(--gold)';
+  zone.innerHTML = `
+    <div style="font-size:28px;margin-bottom:6px">✅</div>
+    <div style="font-size:13px;font-weight:600;color:var(--gold2);margin-bottom:3px">${file.name}</div>
+    <div style="font-size:11px;color:var(--tm)">Dosya seçildi — aşağıdan dinleyebilirsin</div>`;
+  if(!document.getElementById('audioName').value)
+    document.getElementById('audioName').value = file.name.replace(/\.[^.]+$/, '');
+  toast(`✓ "${file.name}" yüklendi`, true);
+}
+
+function confirmAudioUpload(){
+  if(!UB.pendingAudioFile){ toast('Önce bir ses dosyası seçin!', false); return; }
+  const file = UB.pendingAudioFile;
+  const name = document.getElementById('audioName').value.trim() ||
+    file.name.replace(/\.[^.]+$/, '');
+  const url = URL.createObjectURL(file);
+  const entry = { name:'★ '+name, type:UB.audioType, url, file };
+  CUSTOM.audios.push(entry);
+  if(UB.audioType==='melody'||UB.audioType==='single')
+    MELODIES.push({ name:entry.name, metre:'4/4', notes:[], audioUrl:url, isAudio:true });
+  toast(`✓ "${name}" eklendi!`, true);
+  // Sıfırla
+  UB.pendingAudioFile = null;
+  document.getElementById('audioName').value = '';
+  document.getElementById('audioPreview').style.display = 'none';
+  document.getElementById('audioFileInput').value = '';
+  const zone = document.getElementById('audioDropZone');
+  zone.style.borderColor = 'var(--brd)';
+  zone.innerHTML = `
+    <div style="font-size:36px;margin-bottom:8px">📂</div>
+    <div style="font-size:13px;font-weight:600;color:var(--gold2);margin-bottom:4px">Dosya Seçmek İçin Buraya Tıkla</div>
+    <div style="font-size:11px;color:var(--tm)">MP3 · WAV · OGG · M4A · AAC</div>`;
+  renderCustomList(); updateUploadChip();
+}
+
+function handleAudioDrop(e){ e.preventDefault(); handleAudioFiles(e.dataTransfer.files); }
+
+// ── Özel içerik listesi ──
+const typeLabels = {single:'🎵 Tek Ses', melody:'🎻 Ezgi', rhythm:'🥁 Ritim', diff:'🔍 Farkı Bul'};
+
+function renderCustomList(){
+  const el = document.getElementById('customList');
+  if(!el) return;
+  const all = [
+    ...CUSTOM.audios.map((x,i)=>({...x, _cat:'audio', _i:i})),
+    ...CUSTOM.melodies.map((x,i)=>({...x, _cat:'melody', _i:i, type:'melody'})),
+    ...CUSTOM.rhythms.map((x,i)=>({...x, _cat:'rhythm', _i:i, type:'rhythm'})),
+  ];
+  if(all.length === 0){
+    el.innerHTML = '<div style="color:var(--td);font-size:11px;text-align:center;padding:10px">Henüz içerik eklenmedi</div>';
+    return;
+  }
+  el.innerHTML = all.map(item=>`
+    <div style="display:flex;align-items:center;gap:10px;padding:10px 12px;
+      background:var(--s2);border:1px solid var(--brd);border-radius:var(--rs)">
+      <span style="font-size:16px">${item._cat==='audio'?typeLabels[item.type]||'🎵':item._cat==='melody'?'🎻':item._cat==='rhythm'?'🥁':''}</span>
+      <div style="flex:1;min-width:0">
+        <div style="font-size:12px;color:var(--gold2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${item.name||item.label||'—'}</div>
+        <div style="font-size:10px;color:var(--td);margin-top:1px">
+          ${item._cat==='audio'?'Ses Dosyası':item._cat==='melody'?(item.notes?.length||0)+' nota · '+(item.metre||''):item._cat==='rhythm'?(item.beats?.length||0)+' vuruş · '+(item.metre||''):''}
+        </div>
+      </div>
+      ${item._cat==='audio'?`<button onclick="playCustomAudio('${item.url}')" style="padding:5px 9px;background:var(--s1);border:1px solid var(--brd);border-radius:6px;color:var(--tm);font-size:11px;cursor:pointer">▶</button>`:''}
+      ${item._cat==='melody'?`<button onclick="playCustomMelody(${item._i})" style="padding:5px 9px;background:var(--s1);border:1px solid var(--brd);border-radius:6px;color:var(--tm);font-size:11px;cursor:pointer">▶</button>`:''}
+      ${item._cat==='rhythm'?`<button onclick="playCustomRhythm(${item._i})" style="padding:5px 9px;background:var(--s1);border:1px solid var(--brd);border-radius:6px;color:var(--tm);font-size:11px;cursor:pointer">▶</button>`:''}
+      <button onclick="deleteCustom('${item._cat}',${item._i})" style="padding:5px 9px;background:var(--s1);border:1px solid rgba(224,72,72,.3);border-radius:6px;color:var(--err);font-size:11px;cursor:pointer">✕</button>
+    </div>`).join('');
+}
+
+function playCustomAudio(url){
+  const a = new Audio(url);
+  a.play().catch(()=>toast('Ses çalınamadı', false));
+}
+
+async function playCustomMelody(i){
+  const m = CUSTOM.melodies[i];
+  if(m && m.notes.length) await playMelody(m.notes, m.tempo||0.7);
+}
+
+async function playCustomRhythm(i){
+  const r = CUSTOM.rhythms[i];
+  if(r) await playRhythm(r);
+}
+
+function deleteCustom(cat, i){
+  if(cat==='audio'){
+    const entry = CUSTOM.audios[i];
+    URL.revokeObjectURL(entry.url);
+    CUSTOM.audios.splice(i,1);
+    // MELODIES'ten de sil
+    const mi = MELODIES.findIndex(m=>m.audioUrl===entry.url);
+    if(mi>=0) MELODIES.splice(mi,1);
+  } else if(cat==='melody'){
+    const entry = CUSTOM.melodies[i];
+    CUSTOM.melodies.splice(i,1);
+    const mi = MELODIES.findIndex(m=>m.name===entry.name);
+    if(mi>=0) MELODIES.splice(mi,1);
+  } else if(cat==='rhythm'){
+    const entry = CUSTOM.rhythms[i];
+    CUSTOM.rhythms.splice(i,1);
+    const ri = RHYTHM_PATTERNS.findIndex(r=>r.label===entry.label);
+    if(ri>=0) RHYTHM_PATTERNS.splice(ri,1);
+  }
+  renderCustomList();
+  updateUploadChip();
+  toast('Silindi', true);
+}
+
+function clearAllCustom(){
+  if(!confirm('Tüm özel içerikler silinsin mi?')) return;
+  CUSTOM.audios.forEach(a=>URL.revokeObjectURL(a.url));
+  // Ana listelerden temizle
+  CUSTOM.melodies.forEach(m=>{const i=MELODIES.findIndex(x=>x.name===m.name);if(i>=0)MELODIES.splice(i,1);});
+  CUSTOM.rhythms.forEach(r=>{const i=RHYTHM_PATTERNS.findIndex(x=>x.label===r.label);if(i>=0)RHYTHM_PATTERNS.splice(i,1);});
+  CUSTOM.audios=[]; CUSTOM.melodies=[]; CUSTOM.rhythms=[];
+  renderCustomList();
+  updateUploadChip();
+  toast('Tüm özel içerikler silindi', true);
+}
+
+function updateUploadChip(){
+  const total = CUSTOM.audios.length + CUSTOM.melodies.length + CUSTOM.rhythms.length;
+  const el = document.getElementById('uploadChip');
+  if(el) el.textContent = total + ' öge';
+}
+
+// ════════════════════════════════════════════════════════
+//  BOOT
+// ════════════════════════════════════════════════════════
+window.addEventListener('load',()=>{
+  setTimeout(()=>goTo('home'),2300);
+
+  // ── PWA Kurulum ──
+  let deferredPrompt=null;
+  window.addEventListener('beforeinstallprompt',e=>{
+    e.preventDefault();
+    deferredPrompt=e;
+    // Ayarlar sayfasında kur butonu göster
+    const btn=document.getElementById('pwaInstallBtn');
+    if(btn) btn.style.display='flex';
+  });
+
+  window.installPWA=async()=>{
+    if(!deferredPrompt){
+      toast('Zaten kurulu veya tarayıcı desteklemiyor',false);
+      return;
+    }
+    deferredPrompt.prompt();
+    const {outcome}=await deferredPrompt.userChoice;
+    if(outcome==='accepted') toast('✓ Uygulama ana ekrana eklendi!',true);
+    deferredPrompt=null;
+    const btn=document.getElementById('pwaInstallBtn');
+    if(btn) btn.style.display='none';
+  };
+
+  // iOS için: Safari'de "Paylaş → Ana Ekrana Ekle" ipucu
+  const isIOS=/iphone|ipad|ipod/i.test(navigator.userAgent);
+  const isInStandalone=window.navigator.standalone===true;
+  if(isIOS && !isInStandalone){
+    const btn=document.getElementById('pwaInstallBtn');
+    if(btn){
+      btn.style.display='flex';
+      btn.onclick=()=>{
+        toast('Safari\'de: Paylaş butonu → "Ana Ekrana Ekle"',true);
+      };
+    }
+  }
+});
+
+window.addEventListener('resize',()=>{
+  ['wv1','wv2','wv3','wv4','wv5','wv6'].forEach(id=>{
+    const c=document.getElementById(id);if(c) c.width=c.offsetWidth;
+  });
+});
+</script>
+</body>
+</html>
